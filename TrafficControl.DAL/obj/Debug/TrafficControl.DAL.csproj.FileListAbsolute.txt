@@ -1,0 +1,5 @@
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\bin\Debug\TrafficControl.DAL.dll
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\bin\Debug\TrafficControl.DAL.pdb
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.csprojResolveAssemblyReference.cache
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.dll
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.pdb
