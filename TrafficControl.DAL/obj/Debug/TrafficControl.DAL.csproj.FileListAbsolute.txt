@@ -9,3 +9,5 @@ C:\Users\sb\OneDrive\Git-repository\TC_DAL\TrafficControl.DAL\bin\Debug\TrafficC
 C:\Users\sb\OneDrive\Git-repository\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.csprojResolveAssemblyReference.cache
 C:\Users\sb\OneDrive\Git-repository\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.dll
 C:\Users\sb\OneDrive\Git-repository\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.pdb
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\obj\Debug\TrafficControl.DAL.dll.mdb
+D:\PRJ4 Repo\TC_DAL\TrafficControl.DAL\bin\Debug\TrafficControl.DAL.dll.mdb
