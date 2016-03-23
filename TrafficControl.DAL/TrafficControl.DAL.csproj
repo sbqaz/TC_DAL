@@ -37,12 +37,12 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Case.cs" />
-    <Compile Include="Installation.cs" />
     <Compile Include="ITCApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCApi.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Types\Case.cs" />
+    <Compile Include="Types\Installation.cs" />
+    <Compile Include="Types\User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
