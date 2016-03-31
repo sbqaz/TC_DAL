@@ -3,8 +3,8 @@
     public interface ITCApi
     {
         bool LogIn(string email, string encryptedPassWord);
-        void CreateUser();
-        void UpdateUser();
-        void deleteUser(); 
+        bool CreateUser(string email, string passWord, string name, int privileges);
+        bool UpdateUser(string email, string passWord, string name, int privileges, int id);
+        bool deleteUser(int id); 
     }
 }

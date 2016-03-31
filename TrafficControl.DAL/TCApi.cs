@@ -22,6 +22,8 @@ namespace TrafficControl.DAL
                 client.BaseAddress = new Uri("http://60.sv2.dk/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 User usr = new User() {email = email, pass = PassWord};
+                // maybe 
+                client.GetAsync("api/Login");
                 var resp = client.PostAsJsonAsync("api/Login",usr).Result;
 
                 return resp.IsSuccessStatusCode; 
