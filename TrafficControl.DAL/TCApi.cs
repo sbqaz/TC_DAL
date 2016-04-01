@@ -21,9 +21,9 @@ namespace TrafficControl.DAL
             {
                 client.BaseAddress = new Uri("http://60.sv2.dk/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                User usr = new User() {email = email, pass = PassWord};
+                User usr = new User() {username = email, password = PassWord};
                 // maybe 
-                client.GetAsync("api/Login");
+                //client.GetAsync("api/Login");
                 var resp = client.PostAsJsonAsync("api/Login",usr).Result;
 
                 return resp.IsSuccessStatusCode; 
@@ -42,7 +42,7 @@ namespace TrafficControl.DAL
             {
                 client.BaseAddress = new Uri("http://60.sv2.dk/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                User usr = new User() { email = email, pass = passWord, name  = name, privileges = privileges};
+                User usr = new User() { username = email, password = passWord, name  = name, privileges = privileges};
                 var resp = client.PostAsJsonAsync("api/User", usr).Result;
                 return resp.IsSuccessStatusCode;
                 //return int.Parse(resp.StatusCode.ToString());
@@ -55,7 +55,7 @@ namespace TrafficControl.DAL
             {
                 client.BaseAddress = new Uri("http://60.sv2.dk/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                User usr = new User() { email = email, pass = passWord, name = name, privileges = privileges, id = id};
+                User usr = new User() { username = email, password = passWord, name = name, privileges = privileges, id = id};
                 var resp = client.PutAsJsonAsync("api/User", usr).Result;
                 //return int.Parse(resp.StatusCode.ToString());
                 return resp.IsSuccessStatusCode;
