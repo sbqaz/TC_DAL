@@ -8,15 +8,16 @@ namespace TrafficControl.DAL.RestSharp
 {
     public sealed class TCApi : ITCApi
     {
-        private string _apiUrl = @"http://api.trafficcontrol.dk/";
+        private const string ApiUrl = @"http://api.trafficcontrol.dk/";
         private string _token = null;
 
+        //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
             if (email == null) throw new ArgumentNullException(nameof(email));
             if (password == null) throw new ArgumentNullException(nameof(password));
 
-            var client = new RestClient(_apiUrl + "token");
+            var client = new RestClient(ApiUrl + "token");
             var request = new RestRequest(Method.POST);
 
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
@@ -39,7 +40,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public void PrintValues()
         {
-            var client = new RestClient(_apiUrl + "api/Values");
+            var client = new RestClient(ApiUrl + "api/Values");
             var request = new RestRequest(Method.GET);
 
             request.AddHeader("Authorization", _token);
