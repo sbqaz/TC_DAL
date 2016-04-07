@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
+using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
@@ -28,7 +29,7 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
 
             var retval = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
-
+            
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 _token = retval["token_type"] + " " + retval["access_token"];
@@ -55,7 +56,20 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool CreateUser(string email, string passWord, string name, int privileges)
         {
+
             throw new System.NotImplementedException();
+            /*var user = new User()
+            {
+                username = email,
+                password = passWord,
+                name = name,
+                privileges = privileges
+            };
+            var client = new RestClient(ApiUrl);
+            var request = new RestRequest("api/Register",Method.POST);
+            request.AddHeader("Authorization", _token);
+
+            */
         }
 
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
