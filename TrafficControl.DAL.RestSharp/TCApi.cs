@@ -62,19 +62,16 @@ namespace TrafficControl.DAL.RestSharp
             var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
-            //request.AddHeader("Authorization", _token);  - FIXME when we get token in place
-
+            request.AddHeader("Authorization", _token); 
 
             //Temporary function
             request.AddParameter("application/json", "{\r\n  \"Email\": \""+ email +"\",\r\n  \"Password\": \""+ passWord + "\",\r\n      \"ConfirmPassword\": \""+ passWord +"\"\r\n}", ParameterType.RequestBody);
             //request.AddJsonBody(usr);
 
-
-
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK; 
         }
-
+        
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
         {
             throw new System.NotImplementedException();
@@ -82,7 +79,21 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool deleteUser(int id)
         {
-            throw new System.NotImplementedException();
+            var client = new RestClient(ApiUrl + "api/Account/");
+            var request = new RestRequest(Method.POST);
+
+            return true;
+        }
+
+        public bool ChangePassword(string oPassword, string nPassword)
+        {
+            var client = new RestClient(ApiUrl + "api/Account/ChangePassword");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", _token);
+            request.AddHeader("content-type", "application/json");
+            request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ oPassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
+            var response = client.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK;
         }
     }
 }

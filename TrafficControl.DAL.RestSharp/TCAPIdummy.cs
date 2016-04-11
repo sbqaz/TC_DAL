@@ -23,5 +23,10 @@ namespace TrafficControl.DAL.RestSharp
         {
             throw new NotImplementedException();
         }
+
+        public bool ChangePassword(string Opassword, string NPassword)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
