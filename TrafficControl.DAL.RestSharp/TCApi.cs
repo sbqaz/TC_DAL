@@ -54,22 +54,19 @@ namespace TrafficControl.DAL.RestSharp
             }
         }
 
+        
+ 
+
         public bool CreateUser(string email, string passWord, string name, int privileges)
         {
-
-            throw new System.NotImplementedException();
-            /*var user = new User()
-            {
-                username = email,
-                password = passWord,
-                name = name,
-                privileges = privileges
-            };
-            var client = new RestClient(ApiUrl);
-            var request = new RestRequest("api/Register",Method.POST);
-            request.AddHeader("Authorization", _token);
-
-            */
+            var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges};
+            var client = new RestClient(ApiUrl + "api/Account/Register");
+            var request = new RestRequest(Method.POST);
+            
+            //request.AddHeader("Authorization", _token);  - FIXME when we get auth in place
+            request.AddJsonBody(usr);
+            var response = client.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK; 
         }
 
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)

@@ -11,7 +11,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool CreateUser(string email, string passWord, string name, int privileges)
         {
-            throw new NotImplementedException();
+            return true; 
         }
 
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
