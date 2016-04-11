@@ -62,9 +62,15 @@ namespace TrafficControl.DAL.RestSharp
             var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
-            
-            //request.AddHeader("Authorization", _token);  - FIXME when we get auth in place
-            request.AddJsonBody(usr);
+            //request.AddHeader("Authorization", _token);  - FIXME when we get token in place
+
+
+            //Temporary function
+            request.AddParameter("application/json", "{\r\n  \"Email\": \""+ email +"\",\r\n  \"Password\": \""+ passWord + "\",\r\n      \"ConfirmPassword\": \""+ passWord +"\"\r\n}", ParameterType.RequestBody);
+            //request.AddJsonBody(usr);
+
+
+
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK; 
         }
