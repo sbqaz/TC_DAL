@@ -57,9 +57,9 @@ namespace TrafficControl.DAL.RestSharp
         
  
 
-        public bool CreateUser(string email, string passWord, string name, int privileges)
+        public bool CreateUser(string email, string passWord, string name, string privileges,string number)
         {
-            var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges};
+            var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges, number = number};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", _token); 
@@ -94,6 +94,16 @@ namespace TrafficControl.DAL.RestSharp
             request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ oPassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        public ICollection<Case> GetCases()
+        {
+            var client = new RestClient(ApiUrl + "api/Cases");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", _token);
+            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            return GetCases();
         }
     }
 }
