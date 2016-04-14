@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
@@ -85,7 +86,6 @@ namespace TrafficControl.DAL.RestSharp
             var client = new RestClient(ApiUrl + "api/Cases");
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", _token);
-            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
@@ -96,7 +96,6 @@ namespace TrafficControl.DAL.RestSharp
             var client = new RestClient(ApiUrl + "api/Cases/" + caseId);
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", _token);
-            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             var retval = JsonConvert.DeserializeObject<Case>(response.Content);
             Debug.Assert(retval != null, "retval != null");
@@ -105,10 +104,9 @@ namespace TrafficControl.DAL.RestSharp
 
         ICollection<Installation> ITCApi.Installations()
         {
-            var client = new RestClient(ApiUrl + "api/Installation");
+            var client = new RestClient(ApiUrl + "api/Installations");
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", _token);
-            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             var retval = JsonConvert.DeserializeObject<ICollection<Installation>>(response.Content);
             return retval;
@@ -116,15 +114,30 @@ namespace TrafficControl.DAL.RestSharp
 
         public Installation GetInstallation(int id)
         {
-            var client = new RestClient(ApiUrl + "api/Installation" + id);
+            var client = new RestClient(ApiUrl + "api/Installations" + id); 
             var request = new RestRequest(Method.GET);
             request.AddHeader("Authorization", _token);
-            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             var retval = JsonConvert.DeserializeObject<Installation>(response.Content);
             return retval;
         }
+        
+        public ICollection<Position> GetPositions()
+        {
+            throw new NotImplementedException();
+        }
 
+        public Position GetPosition(int id)
+        {
+            throw new NotImplementedException();
+        }
 
+        private RestRequest TCAPIconnection(string a, Method b, int c = new int())
+        {
+            var client = new RestClient(ApiUrl + a + c);
+            var request = new RestRequest(b);
+            request.AddHeader("Authorization", _token);
+            return request;
+        }
     }
 }

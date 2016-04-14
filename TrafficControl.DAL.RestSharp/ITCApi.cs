@@ -15,5 +15,7 @@ namespace TrafficControl.DAL.RestSharp
         
         ICollection<Installation> Installations();
         Installation GetInstallation(int id);
+        ICollection<Position> GetPositions();
+        Position GetPosition(int id); 
     }
 }
