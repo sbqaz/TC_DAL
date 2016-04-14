@@ -107,6 +107,17 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
+
+        public Case GetCase(int caseId)
+        {
+            var client = new RestClient(ApiUrl + "api/Cases/" + caseId);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", _token);
+            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var retval = JsonConvert.DeserializeObject<Case>(response.Content);
+            return retval;
+        }
      
     }
 }
