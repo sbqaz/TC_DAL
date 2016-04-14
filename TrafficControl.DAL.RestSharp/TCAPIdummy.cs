@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
@@ -7,6 +9,11 @@ namespace TrafficControl.DAL.RestSharp
         public bool LogIn(string email, string encryptedPassWord)
         {
             return true; 
+        }
+
+        public bool CreateUser(string email, string passWord, string name, int privileges, string number)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CreateUser(string email, string passWord, string name, int privileges)
@@ -25,6 +32,11 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         public bool ChangePassword(string Opassword, string NPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Case> GetCases()
         {
             throw new NotImplementedException();
         }

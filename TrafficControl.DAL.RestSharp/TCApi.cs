@@ -57,7 +57,7 @@ namespace TrafficControl.DAL.RestSharp
         
  
 
-        public bool CreateUser(string email, string passWord, string name, string privileges,string number)
+        public bool CreateUser(string email, string passWord, string name, int privileges,string number)
         {
             var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges, number = number};
             var client = new RestClient(ApiUrl + "api/Account/Register");
@@ -103,6 +103,8 @@ namespace TrafficControl.DAL.RestSharp
             request.AddHeader("Authorization", _token);
             //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
+
+            //response.ToString(); 
             return GetCases();
         }
     }
