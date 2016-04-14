@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using TrafficControl.DAL.RestSharp.Types;
 namespace TrafficControl.DAL.RestSharp
 {
@@ -10,5 +11,7 @@ namespace TrafficControl.DAL.RestSharp
         bool deleteUser(int id);
         bool ChangePassword(string Opassword, string NPassword);
         ICollection<Case> GetCases();
+
+        Case GetCase(int caseId);
     }
 }
