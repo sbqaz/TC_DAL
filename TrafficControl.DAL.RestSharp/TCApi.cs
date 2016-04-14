@@ -9,7 +9,7 @@ namespace TrafficControl.DAL.RestSharp
 {
     public sealed class TCApi : ITCApi
     {
-        private const string ApiUrl = @"http://api.trafficcontrol.dk/";
+        private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         private string _token = null;
 
         //Email: test@trafficcontrol.dk Password: Phantom-161
