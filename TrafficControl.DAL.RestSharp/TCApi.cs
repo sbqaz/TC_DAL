@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
@@ -103,9 +104,9 @@ namespace TrafficControl.DAL.RestSharp
             request.AddHeader("Authorization", _token);
             //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-
-            //response.ToString(); 
-            return GetCases();
+            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
+            return retval;
         }
+     
     }
 }
