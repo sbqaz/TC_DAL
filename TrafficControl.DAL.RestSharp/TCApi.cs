@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
@@ -39,24 +40,6 @@ namespace TrafficControl.DAL.RestSharp
             return false;
 
         }
-
-        public void PrintValues()
-        {
-            var client = new RestClient(ApiUrl + "api/Values");
-            var request = new RestRequest(Method.GET);
-
-            request.AddHeader("Authorization", _token);
-
-            var response = client.Execute<List<string>>(request);
-
-            foreach (var s in response.Data)
-            {
-                //Console.WriteLine(s);
-            }
-        }
-
-        
- 
 
         public bool CreateUser(string email, string passWord, string name, int privileges,string number)
         {
@@ -116,8 +99,32 @@ namespace TrafficControl.DAL.RestSharp
             //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
             var retval = JsonConvert.DeserializeObject<Case>(response.Content);
+            Debug.Assert(retval != null, "retval != null");
             return retval;
         }
-     
+
+        ICollection<Installation> ITCApi.Installations()
+        {
+            var client = new RestClient(ApiUrl + "api/Installation");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", _token);
+            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var retval = JsonConvert.DeserializeObject<ICollection<Installation>>(response.Content);
+            return retval;
+        }
+
+        public Installation GetInstallation(int id)
+        {
+            var client = new RestClient(ApiUrl + "api/Installation" + id);
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", _token);
+            //request.AddParameter("application/json", "{\r\n  \"Email\": \"test2@bib.dk\",\r\n  \"Password\": \"Tester#123\",\r\n  \"ConfirmPassword\": \"Tester#123\"\r\n}", ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            var retval = JsonConvert.DeserializeObject<Installation>(response.Content);
+            return retval;
+        }
+
+
     }
 }

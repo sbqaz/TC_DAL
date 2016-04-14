@@ -45,5 +45,20 @@ namespace TrafficControl.DAL.RestSharp
         {
             throw new NotImplementedException();
         }
+
+        ICollection<Installation> ITCApi.Installations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Installation GetInstallation(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Installation> Installations
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

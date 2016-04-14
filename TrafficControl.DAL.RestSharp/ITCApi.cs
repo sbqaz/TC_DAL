@@ -11,7 +11,9 @@ namespace TrafficControl.DAL.RestSharp
         bool deleteUser(int id);
         bool ChangePassword(string Opassword, string NPassword);
         ICollection<Case> GetCases();
-
         Case GetCase(int caseId);
+        
+        ICollection<Installation> Installations();
+        Installation GetInstallation(int id);
     }
 }
