@@ -15,6 +15,7 @@ namespace TrafficControl.DAL.RestSharp
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         private string _token = null;
 
+#region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
@@ -80,64 +81,84 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
+        #endregion
+#region Cases
         public ICollection<Case> GetCases()
         {
-            var client = new RestClient(ApiUrl + "api/Cases");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", _token);
-            IRestResponse response = client.Execute(request);
+            var response = TCAPIconnection("api/Cases", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
 
         public Case GetCase(int caseId)
         {
-            var client = new RestClient(ApiUrl + "api/Cases/" + caseId);
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", _token);
-            IRestResponse response = client.Execute(request);
+
+            var response = TCAPIconnection("api/Cases", Method.GET, caseId);
             var retval = JsonConvert.DeserializeObject<Case>(response.Content);
-            Debug.Assert(retval != null, "retval != null");
             return retval;
         }
 
+        public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
+            string repair)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool deleteCase(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+#region Installations
         ICollection<Installation> ITCApi.Installations()
         {
-            var client = new RestClient(ApiUrl + "api/Installations");
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", _token);
-            IRestResponse response = client.Execute(request);
+            var response = TCAPIconnection("api/Installations", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<Installation>>(response.Content);
             return retval;
         }
 
         public Installation GetInstallation(int id)
         {
-            var client = new RestClient(ApiUrl + "api/Installations" + id); 
-            var request = new RestRequest(Method.GET);
-            request.AddHeader("Authorization", _token);
-            IRestResponse response = client.Execute(request);
+            var response = TCAPIconnection("api/Installations", Method.GET, id);
             var retval = JsonConvert.DeserializeObject<Installation>(response.Content);
             return retval;
         }
-        
-        public ICollection<Position> GetPositions()
+
+        public bool DeleteCase(int id)
         {
             throw new NotImplementedException();
+        }
+        #endregion
+#region Position
+        public ICollection<Position> GetPositions()
+        {
+            var response = TCAPIconnection("api/Position", Method.GET);
+            var retval = JsonConvert.DeserializeObject<ICollection<Position>>(response.Content);
+            return retval;
         }
 
         public Position GetPosition(int id)
         {
-            throw new NotImplementedException();
+            var response = TCAPIconnection("api/Position", Method.GET,id);
+            var retval = JsonConvert.DeserializeObject<Position>(response.Content);
+            return retval;
         }
 
-        private RestRequest TCAPIconnection(string a, Method b, int c = new int())
+        public bool DeletePosition(int id)
         {
-            var client = new RestClient(ApiUrl + a + c);
+            throw new NotImplementedException();
+        }
+        #endregion
+#region Helper functions
+        // ReSharper disable once InconsistentNaming
+        private IRestResponse TCAPIconnection(string a, Method b,int c = 0)
+        {
+            var client = c == 0 ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
             var request = new RestRequest(b);
             request.AddHeader("Authorization", _token);
-            return request;
+            IRestResponse response = client.Execute(request);
+            return response;
         }
+#endregion
     }
 }

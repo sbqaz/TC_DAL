@@ -54,6 +54,7 @@
     <Compile Include="TCAPIdummy.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\Installation.cs" />
+    <Compile Include="Types\Position.cs" />
     <Compile Include="Types\User.cs" />
   </ItemGroup>
   <ItemGroup>
