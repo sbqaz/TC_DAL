@@ -11,90 +11,94 @@ namespace TrafficControl.DAL.RestSharp
             return true; 
         }
 
+        public bool CreateUser(User usr)
+        {
+            return true;
+        }
+
         public bool CreateUser(string email, string passWord, string name, int privileges, string number)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool CreateUser(string email, string passWord, string name, int privileges)
         {
-            return true; 
+            return true;
         }
 
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool deleteUser(int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool ChangePassword(string Opassword, string NPassword)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public ICollection<Case> GetCases()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Case GetCase(int caseId)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
             string repair)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool deleteCase(int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
+
 
         ICollection<Installation> ITCApi.Installations()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Installation GetInstallation(int id)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public bool DeleteCase(int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public ICollection<Position> GetPositions()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public Position GetPosition(int id)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public bool DeletePosition(int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public User GetUser()
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public ICollection<Installation> Installations
-        {
-            get { throw new NotImplementedException(); }
-        }
+        
+
     }
 }

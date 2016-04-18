@@ -9,6 +9,7 @@ namespace TrafficControl.DAL.RestSharp
     {
 #region Account
         bool LogIn(string email, string encryptedPassWord);
+        bool CreateUser(User usr);
         bool CreateUser(string email, string passWord, string name, int privileges, string number);
         bool UpdateUser(string email, string passWord, string name, int privileges, int id);
         bool deleteUser(int id);

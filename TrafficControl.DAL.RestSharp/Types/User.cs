@@ -4,14 +4,13 @@ namespace TrafficControl.DAL.RestSharp.Types
 {
     public partial class User
     {
-        
-        public long id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
+        public string Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int privileges { get; set; }
-        public string number { get; set; }
+        public int Privileges { get; set; }
+        public string Number { get; set; }
         public bool EmailNotification { get; set; }
         public bool SMSNotification { get; set; }
     }

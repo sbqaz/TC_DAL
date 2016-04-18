@@ -44,12 +44,20 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
-        public bool CreateUser(string email, string passWord, string fullname, int privileges,string number)
+        public bool CreateUser(User usr)
         {
-            // FIX ME 
-            var tmp1 = "sda";
-            var tmp2 = "asd";
-            var usr  = new User() { password=passWord , username = email , FirstName = tmp1 ,LastName = tmp2, privileges = privileges, number = number};
+            throw new NotImplementedException();
+        }
+
+        public bool CreateUser(string email, string passWord, string name, int privileges, string number)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CreateUser(string email, string passWord, string fullname, int privileges,string number, bool emailnotification = false, bool smsNotification = false)
+        {
+            var str = fullname.Split(' ');
+            var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", _token); 
@@ -67,12 +75,20 @@ namespace TrafficControl.DAL.RestSharp
             throw new System.NotImplementedException();
         }
 
-        public bool deleteUser(int id)
+        public bool deleteUser(int id = 0)
         {
-            var client = new RestClient(ApiUrl + "api/Account/");
-            var request = new RestRequest(Method.POST);
+            IRestResponse response;
+            if (id == 0)
+            {
+                var usr = GetUser();
+                response = TCAPIconnection("api/User", Method.DELETE, id);
 
-            return true;
+            }
+            else
+            {
+                response = TCAPIconnection("api/User", Method.DELETE, id );
+            }
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool ChangePassword(string oPassword, string nPassword)
