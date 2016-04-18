@@ -54,10 +54,11 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
 
+
         public bool CreateUser(string email, string passWord, string fullname, int privileges,string number, bool emailnotification = false, bool smsNotification = false)
         {
             var str = fullname.Split(' ');
-            var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
+           // var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", _token); 
@@ -186,8 +187,17 @@ namespace TrafficControl.DAL.RestSharp
         public User GetUser()
         {
             var response = TCAPIconnection("api/User", Method.GET);
-            var retval = JsonConvert.DeserializeObject<User>(response.Content);
-            return retval; 
+            if (response.Content == "[]")
+            {
+                return null;
+            }
+            else
+            {
+                var retval = JsonConvert.DeserializeObject<User>(response.Content);
+
+                return retval;
+            }
+             
         }
         #endregion
 #region Helper functions
