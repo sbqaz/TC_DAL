@@ -49,7 +49,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool CreateUser(string email, string passWord, string name, int privileges, string number)
         {
-            throw new NotImplementedException();
+            return CreateUser(email, passWord, name, privileges, number,false,false);
         }
 
 
