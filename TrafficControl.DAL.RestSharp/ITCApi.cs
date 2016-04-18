@@ -14,6 +14,7 @@ namespace TrafficControl.DAL.RestSharp
         bool UpdateUser(string email, string passWord, string name, int privileges, int id);
         bool deleteUser(int id);
         bool ChangePassword(string Opassword, string NPassword);
+        bool ChangeUser(User usr);
         #endregion
 #region Cases
         ICollection<Case> GetCases();

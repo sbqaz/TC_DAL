@@ -15,6 +15,7 @@ namespace TrafficControl.DAL.RestSharp
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         //private const string ApiUrl = @"localhost:49527/";
         private string _token = null;
+        private User _curUser;
 
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
@@ -44,10 +45,7 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
-        public bool CreateUser(User usr)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public bool CreateUser(string email, string passWord, string name, int privileges, string number)
         {
@@ -73,25 +71,11 @@ namespace TrafficControl.DAL.RestSharp
         
         public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
         {
-            throw new System.NotImplementedException();
+            //var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
+            //return response.StatusCode == HttpStatusCode.OK;
+            return true; 
         }
-
-        public bool deleteUser(int id = 0)
-        {
-            IRestResponse response;
-            if (id == 0)
-            {
-                var usr = GetUser();
-                response = TCAPIconnection("api/User", Method.DELETE, id);
-
-            }
-            else
-            {
-                response = TCAPIconnection("api/User", Method.DELETE, id );
-            }
-            return response.StatusCode == HttpStatusCode.OK;
-        }
-
+        
         public bool ChangePassword(string oPassword, string nPassword)
         {
             var client = new RestClient(ApiUrl + "api/Account/ChangePassword");
@@ -102,8 +86,17 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
+        
+        
+
+        public bool ChangeUser(User usr)
+        {
+            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
         #endregion
-        #region Cases
+#region Cases
         public ICollection<Case> GetCases()
         {
             var response = TCAPIconnection("api/Cases", Method.GET);
@@ -184,6 +177,12 @@ namespace TrafficControl.DAL.RestSharp
         #endregion
 #region Users
 
+        public bool CreateUser(User usr)
+        {
+            var response = TCAPIconnection("api/User", Method.POST, 0, usr);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
         public User GetUser()
         {
             var response = TCAPIconnection("api/User", Method.GET);
@@ -194,11 +193,28 @@ namespace TrafficControl.DAL.RestSharp
             else
             {
                 var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
-                
+                _curUser = retval[0];
                 return retval[0];
             }
              
         }
+
+        public bool deleteUser(int id = 0)
+        {
+            IRestResponse response;
+            if (id == 0)
+            {
+                var usr = GetUser();
+                response = TCAPIconnection("api/User", Method.DELETE, usr.Id);
+
+            }
+            else
+            {
+                response = TCAPIconnection("api/User", Method.DELETE, id);
+            }
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
         #endregion
 #region Helper functions
         // ReSharper disable once InconsistentNaming
@@ -214,6 +230,16 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
+        // ReSharper disable once InconsistentNaming
+        private IRestResponse TCAPIconnection(string a, Method b, string c)
+        {
+            var client = c == "" ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
+            var request = new RestRequest(b);
+            request.AddHeader("Authorization", _token);
+            var response = client.Execute(request);
+            return response;
+        }
         #endregion
+
     }
 }

@@ -41,6 +41,16 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
+        public bool ChangeName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ChangeUser(User usr)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<Case> GetCases()
         {
             return null;
