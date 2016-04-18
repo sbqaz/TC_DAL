@@ -193,9 +193,9 @@ namespace TrafficControl.DAL.RestSharp
             }
             else
             {
-                var retval = JsonConvert.DeserializeObject<User>(response.Content);
-
-                return retval;
+                var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
+                
+                return retval[0];
             }
              
         }
