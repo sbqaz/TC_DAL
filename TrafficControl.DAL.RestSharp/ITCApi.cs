@@ -31,7 +31,15 @@ namespace TrafficControl.DAL.RestSharp
 #region Position
         ICollection<Position> GetPositions();
         Position GetPosition(int id);
-        bool DeletePosition(int id); 
+        bool DeletePosition(int id);
         #endregion
+
+#region User
+
+        User GetUser();
+
+
+        #endregion
+
     }
 }

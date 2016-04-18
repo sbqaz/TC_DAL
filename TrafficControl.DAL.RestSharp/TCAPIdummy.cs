@@ -87,6 +87,11 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
 
+        public User GetUser()
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<Installation> Installations
         {
             get { throw new NotImplementedException(); }

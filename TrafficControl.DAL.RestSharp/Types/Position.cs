@@ -8,7 +8,7 @@ namespace TrafficControl.DAL.RestSharp.Types
 {
     public class Position
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public double Latitude { get; }
         public double Longtitude { get; }
     }

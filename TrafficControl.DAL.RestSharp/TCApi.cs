@@ -13,6 +13,7 @@ namespace TrafficControl.DAL.RestSharp
     public sealed class TCApi : ITCApi
     {
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
+        //private const string ApiUrl = @"localhost:49527/";
         private string _token = null;
 
 #region Account
@@ -43,9 +44,12 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
-        public bool CreateUser(string email, string passWord, string name, int privileges,string number)
+        public bool CreateUser(string email, string passWord, string fullname, int privileges,string number)
         {
-            var usr  = new User() { password=passWord , username = email , name = name , privileges = privileges, number = number};
+            // FIX ME 
+            var tmp1 = "sda";
+            var tmp2 = "asd";
+            var usr  = new User() { password=passWord , username = email , FirstName = tmp1 ,LastName = tmp2, privileges = privileges, number = number};
             var client = new RestClient(ApiUrl + "api/Account/Register");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", _token); 
@@ -82,7 +86,7 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
         }
         #endregion
-#region Cases
+        #region Cases
         public ICollection<Case> GetCases()
         {
             var response = TCAPIconnection("api/Cases", Method.GET);
@@ -101,7 +105,19 @@ namespace TrafficControl.DAL.RestSharp
         public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
             string repair)
         {
-            throw new NotImplementedException();
+            var myCase = new Case()
+            {
+                Id = Id,
+                InstallationsID = InstalltionId,
+                Worker = worker,
+                Time = startTime,
+                Observer = observer,
+                ErrorDescription = errorDescription,
+                MadeRepair = repair
+            };
+           
+            var response = TCAPIconnection("api/Cases", Method.POST,0, myCase);
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool deleteCase(int id)
@@ -149,16 +165,29 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
         #endregion
+#region Users
+
+        public User GetUser()
+        {
+            var response = TCAPIconnection("api/User", Method.GET);
+            var retval = JsonConvert.DeserializeObject<User>(response.Content);
+            return retval; 
+        }
+        #endregion
 #region Helper functions
         // ReSharper disable once InconsistentNaming
-        private IRestResponse TCAPIconnection(string a, Method b,int c = 0)
+        private IRestResponse TCAPIconnection(string a, Method b,int c = 0,object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
             var request = new RestRequest(b);
             request.AddHeader("Authorization", _token);
-            IRestResponse response = client.Execute(request);
+            if (d != null)
+            {
+                request.AddJsonBody(d);
+            }
+            var response = client.Execute(request);
             return response;
         }
-#endregion
+        #endregion
     }
 }
