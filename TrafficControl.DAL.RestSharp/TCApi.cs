@@ -89,11 +89,7 @@ namespace TrafficControl.DAL.RestSharp
         
         
 
-        public bool ChangeUser(User usr)
-        {
-            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
-            return response.StatusCode == HttpStatusCode.OK;
-        }
+    
 
         #endregion
 #region Cases
@@ -197,6 +193,14 @@ namespace TrafficControl.DAL.RestSharp
                 return retval[0];
             }
              
+        }
+
+        public bool ChangeUser(User usr = null)
+        {
+            if (usr == null)
+                usr = _curUser;
+            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public bool deleteUser(int id = 0)
