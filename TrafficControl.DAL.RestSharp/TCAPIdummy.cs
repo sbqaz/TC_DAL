@@ -43,7 +43,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool UpdateUser(User usr)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool ChangeName(string name)
