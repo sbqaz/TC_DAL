@@ -25,6 +25,11 @@ namespace TrafficControl.DAL.RestSharp
         {
             throw new NotImplementedException();
         }
+
+        public bool UpdatePosition()
+        {
+            throw new NotImplementedException();
+        }
     }
     
     public class TCAPILIB

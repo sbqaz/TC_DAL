@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
 using Newtonsoft.Json;
 using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
@@ -85,15 +86,14 @@ namespace TrafficControl.DAL.RestSharp
 #region Cases
         public ICollection<Case> GetCases()
         {
-            var response = TCAPIconnection("api/Cases", Method.GET);
+            var response = TCAPIconnection("api/Case", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
 
-        public Case GetCase(int caseId)
+        public Case GetCase(int id = 0)
         {
-
-            var response = TCAPIconnection("api/Cases", Method.GET, caseId);
+            var response = TCAPIconnection("api/Case", Method.GET,id);
             var retval = JsonConvert.DeserializeObject<Case>(response.Content);
             return retval;
         }
@@ -109,20 +109,30 @@ namespace TrafficControl.DAL.RestSharp
                 Time = startTime,
                 Observer = observer,
                 ErrorDescription = errorDescription,
-                MadeRepair = repair
+                MadeRepair = repair,
+                Status = 0 
             };
            
-            var response = TCAPIconnection("api/Cases", Method.POST,0, myCase);
+            var response = TCAPIconnection("api/Case", Method.POST,0, myCase);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+        
+
+        public bool DeleteCase(int id)
+        {
+            var response = TCAPIconnection("api/Case", Method.DELETE, id);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        public bool deleteCase(int id)
+        public bool UpdateCase(Case myCase)
         {
-            throw new NotImplementedException();
+            var response = TCAPIconnection("api/Case", Method.PUT, Int32.Parse(myCase.Id.ToString()),myCase);
+            return response.StatusCode == HttpStatusCode.OK;
         }
+
         #endregion
 #region Installations
-        ICollection<Installation> ITCApi.Installations()
+        public ICollection<Installation> GetInstallations()
         {
             var response = TCAPIconnection("api/Installations", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<Installation>>(response.Content);
@@ -136,10 +146,29 @@ namespace TrafficControl.DAL.RestSharp
             return retval;
         }
 
-        public bool DeleteCase(int id)
+        public bool DeleteInstallation(int id)
+        {
+            IRestResponse response;
+            if (id == 0)
+            {
+                var usr = GetUser();
+                response = TCAPIconnection("api/Installation", Method.DELETE, usr.Id);
+
+            }
+            else
+            {
+                response = TCAPIconnection("api/Installation", Method.DELETE, id);
+            }
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+
+        public bool UpdateInstalltion()
         {
             throw new NotImplementedException();
         }
+
+
         #endregion
 #region Position
         public ICollection<Position> GetPositions()
@@ -171,8 +200,18 @@ namespace TrafficControl.DAL.RestSharp
             }
             return response.StatusCode == HttpStatusCode.OK;
         }
+
+        public bool UpdatePosition(Position position)
+        {
+            if (position == null) return false;
+            var response = TCAPIconnection("api/User", Method.PUT,position.Id, position);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+
+
         #endregion
-        #region Users
+#region Users
 
 
             

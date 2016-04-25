@@ -61,6 +61,11 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
+        public Case GetCase()
+        {
+            throw new NotImplementedException();
+        }
+
         public Case GetCase(int caseId)
         {
             return null;
@@ -78,7 +83,17 @@ namespace TrafficControl.DAL.RestSharp
         }
 
 
-        ICollection<Installation> ITCApi.Installations()
+        public bool UpdateCase(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateCase(Case myCase)
+        {
+            throw new NotImplementedException();
+        }
+
+        ICollection<Installation> ITCApi.GetInstallations()
         {
             return null;
         }
@@ -88,9 +103,19 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
+        public bool DeleteInstallation(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteCase(int id)
         {
             return true;
+        }
+
+        public bool UpdateInstalltion()
+        {
+            throw new NotImplementedException();
         }
 
         public ICollection<Position> GetPositions()
@@ -106,6 +131,11 @@ namespace TrafficControl.DAL.RestSharp
         public bool DeletePosition(int id)
         {
             return true;
+        }
+
+        public bool UpdatePosition(Position position)
+        {
+            throw new NotImplementedException();
         }
 
         public User GetUser()
