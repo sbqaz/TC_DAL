@@ -110,7 +110,14 @@ namespace TrafficControl.DAL.RestSharp
 
         public User GetUser()
         {
-            return null;
+            var retval = new User();
+            retval.EmailNotification = true;
+            retval.SMSNotification = false;
+            retval.FirstName = "TestPerson";
+            retval.LastName = "Hansen";
+            retval.Number = "+4560221133";
+            retval.Id = "1";
+            return retval;
         }
 
         public bool UpdateUser(string email, string password, string name, int privileges, string id)
