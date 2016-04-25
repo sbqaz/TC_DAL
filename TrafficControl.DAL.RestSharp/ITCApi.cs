@@ -10,11 +10,10 @@ namespace TrafficControl.DAL.RestSharp
 #region Account
         bool LogIn(string email, string encryptedPassWord);
         bool CreateUser(User usr);
-        bool CreateUser(string email, string passWord, string name, int privileges, string number);
-        bool UpdateUser(string email, string passWord, string name, int privileges, int id);
-        bool deleteUser(int id);
-        bool ChangePassword(string Opassword, string NPassword);
-        bool ChangeUser(User usr);
+        bool CreateUser(string email, string password, string name, int privileges, string number);
+        
+        bool ChangePassword(string oPassword, string nPassword);
+        bool UpdateUser(User usr);
         #endregion
 #region Cases
         ICollection<Case> GetCases();
@@ -39,7 +38,8 @@ namespace TrafficControl.DAL.RestSharp
 #region User
 
         User GetUser();
-
+        bool UpdateUser(string email, string password, string name, int privileges, string id);
+        bool DeleteUser(int id);
 
         #endregion
 

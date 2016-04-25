@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPosition.cs" />
     <Compile Include="ITCApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCApi.cs" />
     <Compile Include="TCAPIdummy.cs" />
+    <Compile Include="TCAPIPosition.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\Installation.cs" />
     <Compile Include="Types\Position.cs" />

@@ -36,9 +36,14 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
-        public bool ChangePassword(string Opassword, string NPassword)
+        public bool ChangePassword(string opassword, string nPassword)
         {
             return true;
+        }
+
+        public bool UpdateUser(User usr)
+        {
+            throw new NotImplementedException();
         }
 
         public bool ChangeName(string name)
@@ -108,7 +113,14 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
-        
+        public bool UpdateUser(string email, string password, string name, int privileges, string id)
+        {
+            throw new NotImplementedException();
+        }
 
+        public bool DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
 
+//TODO Maybe I should use one of the solid principle to split the interface up?
+
 namespace TrafficControl.DAL.RestSharp
 {
     public sealed class TCApi : ITCApi
@@ -15,7 +17,7 @@ namespace TrafficControl.DAL.RestSharp
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         //private const string ApiUrl = @"localhost:49527/";
         private string _token = null;
-        private User _curUser;
+        private User CurUser { get; set; }
 
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
@@ -45,13 +47,11 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
-        
 
-        public bool CreateUser(string email, string passWord, string name, int privileges, string number)
+        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
         {
-            return CreateUser(email, passWord, name, privileges, number,false,false);
+            return CreateUser(email,passWord,fullname,privileges,number,false,false);
         }
-
 
         public bool CreateUser(string email, string passWord, string fullname, int privileges,string number, bool emailnotification = false, bool smsNotification = false)
         {
@@ -69,28 +69,18 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK; 
         }
         
-        public bool UpdateUser(string email, string passWord, string name, int privileges, int id)
-        {
-            //var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
-            //return response.StatusCode == HttpStatusCode.OK;
-            return true; 
-        }
         
-        public bool ChangePassword(string oPassword, string nPassword)
+        public bool ChangePassword(string opassword, string nPassword)
         {
             var client = new RestClient(ApiUrl + "api/Account/ChangePassword");
             var request = new RestRequest(Method.POST);
             request.AddHeader("Authorization", _token);
             request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ oPassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
+            request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ opassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
         
-        
-
-    
-
         #endregion
 #region Cases
         public ICollection<Case> GetCases()
@@ -168,11 +158,24 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool DeletePosition(int id)
         {
-            throw new NotImplementedException();
+            IRestResponse response;
+            if (id == 0)
+            {
+                var usr = GetUser();
+                response = TCAPIconnection("api/Position", Method.DELETE, usr.Id);
+
+            }
+            else
+            {
+                response = TCAPIconnection("api/Position", Method.DELETE, id);
+            }
+            return response.StatusCode == HttpStatusCode.OK;
         }
         #endregion
-#region Users
+        #region Users
 
+
+            
         public bool CreateUser(User usr)
         {
             var response = TCAPIconnection("api/User", Method.POST, 0, usr);
@@ -189,21 +192,31 @@ namespace TrafficControl.DAL.RestSharp
             else
             {
                 var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
-                _curUser = retval[0];
-                return retval[0];
+                CurUser = retval[0];
+                return CurUser;
             }
              
         }
 
-        public bool ChangeUser(User usr = null)
+        
+
+        public bool UpdateUser(string email, string passWord, string name, int privileges, string id)
+        {
+            var str = name.Split(' ');
+            var usr = new User() {FirstName = str[0], Id = id, LastName = str[1]};
+            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
+            //return response.StatusCode == HttpStatusCode.OK;
+            return true;
+        }
+        public bool UpdateUser(User usr = null)
         {
             if (usr == null)
-                usr = _curUser;
+                usr = CurUser;
             var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        public bool deleteUser(int id = 0)
+        public bool DeleteUser(int id = 0)
         {
             IRestResponse response;
             if (id == 0)

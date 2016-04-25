@@ -4,6 +4,7 @@ namespace TrafficControl.DAL.RestSharp.Types
 {
     public class Case
     {
+        public int Status { get; set; }
         public int? Observer { get; set; }
         public long Id { get; set; }
         public long? InstallationsID { get; set; }
