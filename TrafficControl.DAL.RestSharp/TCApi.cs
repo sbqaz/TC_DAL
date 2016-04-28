@@ -15,11 +15,18 @@ namespace TrafficControl.DAL.RestSharp
 {
     public sealed class TCApi : ITCApi
     {
+        
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         //private const string ApiUrl = @"localhost:49527/";
         private string _token = null;
         private User CurUser { get; set; }
-
+        private IPosition MyPositionHandler { get; set; }
+        TCApi()
+        {
+            TCAPILIB.ApiUrl = ApiUrl;
+            TCAPILIB.Token = _token;
+            MyPositionHandler = new TCAPIPosition();
+        }
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
@@ -42,6 +49,7 @@ namespace TrafficControl.DAL.RestSharp
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 _token = retval["token_type"] + " " + retval["access_token"];
+                TCAPILIB.Token = _token;
                 return true;
             }
             return false;
@@ -173,39 +181,22 @@ namespace TrafficControl.DAL.RestSharp
 #region Position
         public ICollection<Position> GetPositions()
         {
-            var response = TCAPIconnection("api/Position", Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<Position>>(response.Content);
-            return retval;
+            return MyPositionHandler.GetPositions();
         }
 
         public Position GetPosition(int id)
         {
-            var response = TCAPIconnection("api/Position", Method.GET,id);
-            var retval = JsonConvert.DeserializeObject<Position>(response.Content);
-            return retval;
+            return MyPositionHandler.GetPosition(id);
         }
 
         public bool DeletePosition(int id)
         {
-            IRestResponse response;
-            if (id == 0)
-            {
-                var usr = GetUser();
-                response = TCAPIconnection("api/Position", Method.DELETE, usr.Id);
-
-            }
-            else
-            {
-                response = TCAPIconnection("api/Position", Method.DELETE, id);
-            }
-            return response.StatusCode == HttpStatusCode.OK;
+            return MyPositionHandler.DeletePosition(id);
         }
 
         public bool UpdatePosition(Position position)
         {
-            if (position == null) return false;
-            var response = TCAPIconnection("api/User", Method.PUT,position.Id, position);
-            return response.StatusCode == HttpStatusCode.OK;
+            return MyPositionHandler.UpdatePosition(position);
         }
 
 
@@ -274,7 +265,7 @@ namespace TrafficControl.DAL.RestSharp
         #endregion
 #region Helper functions
         // ReSharper disable once InconsistentNaming
-        private IRestResponse TCAPIconnection(string a, Method b,int c = 0,object d = null)
+        private IRestResponse TCAPIconnection(string a, Method b,long c = 0,object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
             var request = new RestRequest(b);

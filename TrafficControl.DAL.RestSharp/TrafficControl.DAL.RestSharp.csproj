@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TCAPILIB.cs" />
     <Compile Include="IPosition.cs" />
     <Compile Include="ITCApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

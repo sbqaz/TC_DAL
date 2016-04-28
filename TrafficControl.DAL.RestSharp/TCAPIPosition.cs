@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -9,54 +10,42 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public class TCAPIPosition : TCAPILIB, IPosition
+    public class TCAPIPosition : IPosition
     {
-        public Position GetPosition(int id = 0)
-        {
-            throw new NotImplementedException();
-        }
+        private TCAPILIB _myLIB;
 
-        public bool DeletePosition(int id)
+        public TCAPIPosition()
         {
-            throw new NotImplementedException();
+            _myLIB = new TCAPILIB() {ApiDirectory = "api/position"};
         }
-
         public ICollection<Position> GetPositions()
         {
-            throw new NotImplementedException();
+            var response = _myLIB.TCAPIconnection(Method.GET);
+            var retval = JsonConvert.DeserializeObject<ICollection<Position>>(response.Content);
+            return retval;
         }
 
-        public bool UpdatePosition()
+        public Position GetPosition(int id)
         {
-            throw new NotImplementedException();
+            var response = _myLIB.TCAPIconnection( Method.GET, id);
+            var retval = JsonConvert.DeserializeObject<Position>(response.Content);
+            return retval;
+        }
+
+        
+        public bool DeletePosition(int id)
+        {
+            if (id == 0) return false;
+            var response = _myLIB.TCAPIconnection(Method.DELETE, id);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        public bool UpdatePosition(Position position)
+        {
+            if (position == null) return false;
+            var response = _myLIB.TCAPIconnection(Method.PUT, position.Id, position);
+            return response.StatusCode == HttpStatusCode.OK;
         }
     }
     
-    public class TCAPILIB
-    {
-        private string ApiUrl = "dfsda";
-        private string _token = "sdas";
-        public IRestResponse TCAPIconnection(string a, Method b, int c = 0, object d = null)
-        {
-            var client = c == 0 ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
-            var request = new RestRequest(b);
-            request.AddHeader("Authorization", _token);
-            if (d != null)
-            {
-                request.AddJsonBody(d);
-            }
-            var response = client.Execute(request);
-            return response;
-        }
-        // ReSharper disable once InconsistentNaming
-        public IRestResponse TCAPIconnection(string a, Method b, string c)
-        {
-            var client = c == "" ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
-            var request = new RestRequest(b);
-            request.AddHeader("Authorization", _token);
-            var response = client.Execute(request);
-            return response;
-        }
-
-    }
 }

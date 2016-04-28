@@ -12,6 +12,6 @@ namespace TrafficControl.DAL.RestSharp
         Position GetPosition(int id=0);
         bool DeletePosition(int id);
         ICollection<Position> GetPositions();
-        bool UpdatePosition();
+        bool UpdatePosition(Position position);
     }
 }
