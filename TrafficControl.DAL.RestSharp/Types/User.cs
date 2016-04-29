@@ -11,16 +11,16 @@ namespace TrafficControl.DAL.RestSharp.Types
         public string FirstName { get; set; }
         [JsonProperty("LastName")]
         public string LastName { get; set; }
-        
         [JsonProperty("PhoneNumber")]
         public string Number { get; set; }
         [JsonProperty("EmailNotification")]
         public bool EmailNotification { get; set; }
         [JsonProperty("SMSNotification")]
         public bool SMSNotification { get; set; }
-
+        [JsonProperty("Role")]
+        public int Role { get; set; }
         //public string Username { get; set; }
         //public string Password { get; set; }
-        //public int Privileges { get; set; }
+
     }
 }
