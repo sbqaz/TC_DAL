@@ -35,6 +35,18 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
+        public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c = null)
+        {
+            var client = new RestClient(ApiUrl + ApiSubDirectory);
+            var request = new RestRequest(b);
+            request.AddHeader("Authorization", Token);
+            if (c != null)
+            {
+                request.AddJsonBody(c);
+            }
+            var response = client.Execute(request);
+            return response;
+        }
 
     }
 }

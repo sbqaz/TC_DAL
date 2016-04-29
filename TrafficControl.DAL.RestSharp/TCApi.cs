@@ -29,13 +29,12 @@ namespace TrafficControl.DAL.RestSharp
         private IPosition MyPositionHandler { get; set; }
         TCApi()
         {
-            PositionDataHandler = new TCData<Position>("api/Position");
-            UserDataHandler = new TCData<User>("api/User");
-            CaseDataHandler = new TCData<Case>("api/Case");
-            InstallationDataHandler = new TCData<Installation>("api/Installation");
+            PositionDataHandler = new TCDataPosition();
+            UserDataHandler = new TCDataUser();
+            CaseDataHandler = new TCDataCase();
+            InstallationDataHandler = new TCDataInstallation();
             TCAPILIB.ApiUrl = ApiUrl;
             TCAPILIB.Token = _token;
-            MyPositionHandler = new TCAPIPosition();
         }
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
@@ -189,6 +188,7 @@ namespace TrafficControl.DAL.RestSharp
 
         #endregion
 #region Position
+        //TODO POST position 
         public ICollection<Position> GetPositions()
         {
             return PositionDataHandler.GetAll();
@@ -206,10 +206,8 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool UpdatePosition(Position position)
         {
-            return PositionDataHandler.Update(position);
+           return PositionDataHandler.Update(position);
         }
-
-
 
         #endregion
 #region Users
