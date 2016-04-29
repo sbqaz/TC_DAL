@@ -20,9 +20,19 @@ namespace TrafficControl.DAL.RestSharp
         //private const string ApiUrl = @"localhost:49527/";
         private string _token = null;
         private User CurUser { get; set; }
+        public ITCData<Position> PositionDataHandler { get; set; }
+        public ITCData<User> UserDataHandler { get; set; }
+        public ITCData<Installation> InstallationDataHandler { get; set; }
+        public ITCData<Case> CaseDataHandler { get; set; }
+
+
         private IPosition MyPositionHandler { get; set; }
         TCApi()
         {
+            PositionDataHandler = new TCData<Position>("api/Position");
+            UserDataHandler = new TCData<User>("api/User");
+            CaseDataHandler = new TCData<Case>("api/Case");
+            InstallationDataHandler = new TCData<Installation>("api/Installation");
             TCAPILIB.ApiUrl = ApiUrl;
             TCAPILIB.Token = _token;
             MyPositionHandler = new TCAPIPosition();
@@ -181,22 +191,22 @@ namespace TrafficControl.DAL.RestSharp
 #region Position
         public ICollection<Position> GetPositions()
         {
-            return MyPositionHandler.GetPositions();
+            return PositionDataHandler.GetAll();
         }
 
         public Position GetPosition(int id)
         {
-            return MyPositionHandler.GetPosition(id);
+            return PositionDataHandler.Get(id);
         }
 
         public bool DeletePosition(int id)
         {
-            return MyPositionHandler.DeletePosition(id);
+            return PositionDataHandler.Delete(id);
         }
 
         public bool UpdatePosition(Position position)
         {
-            return MyPositionHandler.UpdatePosition(position);
+            return PositionDataHandler.Update(position);
         }
 
 
