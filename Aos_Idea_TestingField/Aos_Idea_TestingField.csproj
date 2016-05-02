@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99424C50-F132-4DE5-A9B1-919CFEA3F26B}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{71EBB520-481D-4808-B140-AE0A28ED741E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrafficControl.DAL.RestSharp</RootNamespace>
-    <AssemblyName>TrafficControl.DAL.RestSharp</AssemblyName>
+    <RootNamespace>Aos_Idea_TestingField</RootNamespace>
+    <AssemblyName>Aos_Idea_TestingField</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,11 +34,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\TrafficControl.DAL.RestSharp\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <HintPath>..\TrafficControl.DAL.RestSharp\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,24 +52,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITCData.cs" />
-    <Compile Include="TCAPILIB.cs" />
-    <Compile Include="ITCApi.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCApi.cs" />
-    <Compile Include="TCAPIdummy.cs" />
     <Compile Include="TCData.cs" />
-    <Compile Include="TCDataInstallation.cs" />
-    <Compile Include="TCDataCase.cs" />
-    <Compile Include="TCDataUser.cs" />
-    <Compile Include="TCDataPosition.cs" />
     <Compile Include="Types\BaseType.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\GenericBase.cs" />
     <Compile Include="Types\Installation.cs" />
     <Compile Include="Types\Position.cs" />
+    <Compile Include="TCAPILIB.cs" />
     <Compile Include="Types\User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

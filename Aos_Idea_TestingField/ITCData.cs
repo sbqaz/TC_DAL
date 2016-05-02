@@ -11,11 +11,11 @@ namespace TrafficControl.DAL.RestSharp
 {
     public interface ITCData<T>
     {
-        TCDataAcess LIB { get; set; }
+        TCAPILIB LIB { get; set; }
         T Get(int id=0);
         bool Delete(int id);
         ICollection<T> GetAll();
-        bool Update(T user);
+        bool Update(T obj);
         bool Post(T obj);
     }
 }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace TrafficControl.DAL.RestSharp.Types
 {
-    public class Position
+    public abstract class GenericBase<T> 
     {
-        public long Id { get; set; }
-        public double Latitude { get; set; }
-        public double Longtitude { get; set; }
+        public abstract T Id { get; set; }
     }
 }

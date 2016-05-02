@@ -10,57 +10,24 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public class TCDataPosition : ITCData<Position>
+    public class TCDataPosition : TCData<Position>
     {
-        public TCAPILIB LIB { get; set; }
-
-        public TCDataPosition(string optional=null)
+        public TCDataPosition()
         {
-            if (optional != null)
-            {
-                LIB = new TCAPILIB() {ApiDirectory = optional};
-            }
-            else
-            {
-                LIB = new TCAPILIB() {ApiDirectory = "api/position/"};
-            }
+                LIB = new TCDataAcess() {ApiDirectory = "api/position/"};
         }
-        public bool Post(Position obj)
+        public override bool Post(Position obj)
         {
             if (obj == null) return false;
             var response = LIB.TCAPIconnection(Method.POST, obj.Id, obj);
             return response.StatusCode == HttpStatusCode.OK;
         }
-        public Position Get(int id = 0)
+
+        public override bool Update(Position user)
         {
-            var response = LIB.TCAPIconnection(Method.GET, id);
-            var retval = JsonConvert.DeserializeObject<Position>(response.Content);
-            return retval;
-        }
-        public ICollection<Position> GetAll()
-        {
-            var response = LIB.TCAPIconnection(Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<Position>>(response.Content);
-            return retval;
-        }
-        public bool Update(Position position)
-        {
-            if (position == null) return false;
-            var response = LIB.TCAPIconnection(Method.PUT, position.Id, position);
+            if (user == null) return false;
+            var response = LIB.TCAPIconnection(Method.PUT, user.Id, user);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
-        public bool Delete(int id)
-        {
-            if (id == 0) return false;
-            var response = LIB.TCAPIconnection(Method.DELETE, id);
-            return response.StatusCode == HttpStatusCode.OK;
-        }
-
-
-
-       
-     
     }
-    
 }

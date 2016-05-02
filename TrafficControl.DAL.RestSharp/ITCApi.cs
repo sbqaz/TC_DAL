@@ -7,44 +7,33 @@ namespace TrafficControl.DAL.RestSharp
 {
     public interface ITCApi
     {
-#region Account
+    #region Account
         bool LogIn(string email, string encryptedPassWord);
         bool CreateUser(User usr);
-        bool CreateUser(string email, string password, string name, int privileges, string number);
-        
-        bool ChangePassword(string oPassword, string nPassword);
+        bool ChangePassword(string oPassword, string nPassword , string cPassword);
+        User GetUser();
         bool UpdateUser(User usr);
+        bool UpdateUser(string email, string password, string name, bool smsnotifikation, bool emailnotifikation);
+        bool DeleteUser(int id);
         #endregion
-#region Cases
+    #region Cases
         ICollection<Case> GetCases();
         Case GetCase(int id);
-        bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer,
-            string errorDescription, string repair);
+        bool CreateCase(int InstalltionId, int observer, string errorDescription);
         bool DeleteCase(int id);
         bool UpdateCase(Case myCase);
         #endregion
-
-#region Installations
+    #region Installations
         ICollection<Installation> GetInstallations();
         Installation GetInstallation(int id);
         bool DeleteInstallation(int id);
-        bool UpdateInstalltion();
+        bool UpdateInstalltion(Installation obj);
         #endregion
-
-#region Position
+    #region Position
         ICollection<Position> GetPositions();
         Position GetPosition(int id);
         bool DeletePosition(int id);
         bool UpdatePosition(Position position);
         #endregion
-
-#region User
-
-        User GetUser();
-        bool UpdateUser(string email, string password, string name, int privileges, string id);
-        bool DeleteUser(int id);
-
-        #endregion
-
     }
 }

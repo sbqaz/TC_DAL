@@ -21,13 +21,10 @@ namespace TrafficControl.DAL.RestSharp
         private string _token = null;
         private User CurUser { get; set; }
         public ITCData<Position> PositionDataHandler { get; set; }
-        public ITCData<User> UserDataHandler { get; set; }
+        public TCData<User> UserDataHandler { get; set; }
         public ITCData<Installation> InstallationDataHandler { get; set; }
         public ITCData<Case> CaseDataHandler { get; set; }
-        private ITmpInterface TC { get; set; }
 
-
-        private IPosition MyPositionHandler { get; set; }
         public TCApi()
 
         {
@@ -35,165 +32,91 @@ namespace TrafficControl.DAL.RestSharp
             UserDataHandler = new TCDataUser();
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
-            TCAPILIB.ApiUrl = ApiUrl;
+            TCDataAcess.ApiUrl = ApiUrl;
 
-            TCAPILIB.Token = _token;
-            TC = (ITmpInterface) UserDataHandler;
+            TCDataAcess.Token = _token;
         }
 
-        #region Account
+#region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
-            if (email == null) throw new ArgumentNullException(nameof(email));
-            if (password == null) throw new ArgumentNullException(nameof(password));
-
-            var client = new RestClient(ApiUrl + "token");
-            var request = new RestRequest(Method.POST);
-
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-
-            string tmp = String.Format("grant_type=password&userName={0}&password={1}", email, password);
-            request.AddParameter("application/x-www-form-urlencoded", tmp, ParameterType.RequestBody);
-
-            var response = client.Execute(request);
-
-            var retval = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
-            
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                _token = retval["token_type"] + " " + retval["access_token"];
-                TCAPILIB.Token = _token;
-                return true;
-            }
-            return false;
-
+            return TCDataAcess.LogIn(email, password);
         }
 
-
-        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
+        public bool ChangePassword(string opassword, string nPassword,string cPassword)
         {
-            return CreateUser(email,passWord,fullname,privileges,number,false,false);
-        }
-
-        public bool CreateUser(string email, string passWord, string fullname, int privileges,string number, bool emailnotification = false, bool smsNotification = false)
-        {
-            var str = fullname.Split(' ');
-           // var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
-            var client = new RestClient(ApiUrl + "api/Account/Register");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", _token); 
-
-            //Temporary function
-            request.AddParameter("application/json", "{\r\n  \"Email\": \""+ email +"\",\r\n  \"Password\": \""+ passWord + "\",\r\n      \"ConfirmPassword\": \""+ passWord +"\"\r\n}", ParameterType.RequestBody);
-            //request.AddJsonBody(usr);
-
-            var response = client.Execute(request);
-            return response.StatusCode == HttpStatusCode.OK; 
-        }
-        
-        
-        public bool ChangePassword(string opassword, string nPassword)
-        {
-            var client = new RestClient(ApiUrl + "api/Account/ChangePassword");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", _token);
-            request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ opassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
-            var response = client.Execute(request);
-            return response.StatusCode == HttpStatusCode.OK;
+            return UserDataHandler.ChangePassword(opassword,nPassword,cPassword);
         }
         
         #endregion
 #region Cases
         public ICollection<Case> GetCases()
         {
-            var response = TCAPIconnection("api/Case", Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
-            return retval;
+            return CaseDataHandler.GetAll();
         }
 
         public Case GetCase(int id = 0)
         {
-            var response = TCAPIconnection("api/Case", Method.GET,id);
-            var retval = JsonConvert.DeserializeObject<Case>(response.Content);
-            return retval;
+            return CaseDataHandler.Get(id);
         }
 
-        public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
-            string repair)
+        public bool CreateCase(int InstalltionId, int observer, string errorDescription)
         {
             var myCase = new Case()
             {
-                Id = Id,
                 InstallationsID = InstalltionId,
-                Worker = worker,
-                Time = startTime,
                 Observer = observer,
                 ErrorDescription = errorDescription,
-                MadeRepair = repair,
                 Status = 0 
             };
-           
-            var response = TCAPIconnection("api/Case", Method.POST,0, myCase);
-            return response.StatusCode == HttpStatusCode.OK;
+            return CaseDataHandler.Post(myCase);
         }
-        
 
         public bool DeleteCase(int id)
         {
-            var response = TCAPIconnection("api/Case", Method.DELETE, id);
-            return response.StatusCode == HttpStatusCode.OK;
+            return CaseDataHandler.Delete(id);
         }
 
         public bool UpdateCase(Case myCase)
         {
-            var response = TCAPIconnection("api/Case", Method.PUT, Int32.Parse(myCase.Id.ToString()),myCase);
-            return response.StatusCode == HttpStatusCode.OK;
+            return CaseDataHandler.Update(myCase);
         }
 
         #endregion
-#region Installations
+        #region Installations
         public ICollection<Installation> GetInstallations()
         {
-            var response = TCAPIconnection("api/Installations", Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<Installation>>(response.Content);
-            return retval;
+            return InstallationDataHandler.GetAll();
         }
 
         public Installation GetInstallation(int id)
         {
-            var response = TCAPIconnection("api/Installations", Method.GET, id);
-            var retval = JsonConvert.DeserializeObject<Installation>(response.Content);
-            return retval;
+            return InstallationDataHandler.Get(id);
         }
 
         public bool DeleteInstallation(int id)
         {
-            IRestResponse response;
-            if (id == 0)
-            {
-                var usr = GetUser();
-                response = TCAPIconnection("api/Installation", Method.DELETE, usr.Id);
-
-            }
-            else
-            {
-                response = TCAPIconnection("api/Installation", Method.DELETE, id);
-            }
-            return response.StatusCode == HttpStatusCode.OK;
+            return InstallationDataHandler.Delete(id);
         }
 
 
-        public bool UpdateInstalltion()
+        public bool UpdateInstalltion(Installation obj)
         {
-            throw new NotImplementedException();
+            return InstallationDataHandler.Update(obj);
         }
 
 
         #endregion
-#region Position
-        //TODO POST position 
+        #region Position
+        public bool CreatePosition(double x, double y)
+        {
+            var myPosition = new Position()
+            {
+                Latitude = x,Longtitude = y
+            };
+            return PositionDataHandler.Post(myPosition);
+        }
         public ICollection<Position> GetPositions()
         {
             return PositionDataHandler.GetAll();
@@ -217,23 +140,16 @@ namespace TrafficControl.DAL.RestSharp
         #endregion
         #region Users
 
-        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
-        {
-            return TC.Post(email, password, confirmedpassword, firstname, lastname, roles, number);
-        }
-
 
         public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
             int roles, string number)
         {
-            return TC.Post(email, password, confirmedpassword, firstname, lastname, roles,number);
+            return UserDataHandler.Post(email, password, confirmedpassword, firstname, lastname, roles,number);
         }
 
         public bool CreateUser(User usr)
         {
-            
-            var response = TCAPIconnection("api/User", Method.POST, 0, usr);
-            return response.StatusCode == HttpStatusCode.OK;
+            return UserDataHandler.Post(usr);
         }
 
         public User GetUser()
@@ -242,14 +158,13 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         
-        //TODO maybe should delete
-        public bool UpdateUser(string email, string passWord, string name, int privileges, string id)
+        public bool UpdateUser( string firstname,string lastname,string number, bool SMSNotification , bool emailNotification)
         {
-            var str = name.Split(' ');
-            var usr = new User() {FirstName = str[0], Id = id, LastName = str[1]};
-            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
-            //return response.StatusCode == HttpStatusCode.OK;
-            return true;
+            var usr = new User()
+            {
+                 FirstName = firstname,LastName = lastname,Number = number,SMSNotification = SMSNotification,EmailNotification = emailNotification
+            };
+            return UserDataHandler.Update(usr);
         }
         public bool UpdateUser(User usr = null)
         {
@@ -258,49 +173,11 @@ namespace TrafficControl.DAL.RestSharp
             return UserDataHandler.Update(usr);
         }
 
-        //README don't call this func..
-
         public bool DeleteUser(int id = 0)
         {
-            IRestResponse response;
-            if (id == 0)
-            {
-                var usr = GetUser();
-                response = TCAPIconnection("api/User", Method.DELETE, usr.Id);
-
-            }
-            else
-            {
-                response = TCAPIconnection("api/User", Method.DELETE, id);
-            }
-            return response.StatusCode == HttpStatusCode.OK;
+            return UserDataHandler.Delete(id);
         }
 
         #endregion
-        #region Helper functions
-        // ReSharper disable once InconsistentNaming
-        private IRestResponse TCAPIconnection(string a, Method b,long c = 0,object d = null)
-        {
-            var client = c == 0 ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
-            var request = new RestRequest(b);
-            request.AddHeader("Authorization", _token);
-            if (d != null)
-            {
-                request.AddJsonBody(d);
-            }
-            var response = client.Execute(request);
-            return response;
-        }
-        // ReSharper disable once InconsistentNaming
-        private IRestResponse TCAPIconnection(string a, Method b, string c)
-        {
-            var client = c == "" ? new RestClient(ApiUrl + a) : new RestClient(ApiUrl + a + c);
-            var request = new RestRequest(b);
-            request.AddHeader("Authorization", _token);
-            var response = client.Execute(request);
-            return response;
-        }
-        #endregion
-
     }
 }
