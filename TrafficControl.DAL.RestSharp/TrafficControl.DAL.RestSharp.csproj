@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITCData.cs" />
+    <Compile Include="ITmpInterface.cs" />
     <Compile Include="TCAPILIB.cs" />
     <Compile Include="IPosition.cs" />
     <Compile Include="ITCApi.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="TCDataCase.cs" />
     <Compile Include="TCDataUser.cs" />
     <Compile Include="TCDataPosition.cs" />
-    <Compile Include="TmpfixInterfaceForDataUser.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\Installation.cs" />
     <Compile Include="Types\Position.cs" />

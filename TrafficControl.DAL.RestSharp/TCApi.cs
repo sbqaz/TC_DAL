@@ -24,8 +24,8 @@ namespace TrafficControl.DAL.RestSharp
         public ITCData<User> UserDataHandler { get; set; }
         public ITCData<Installation> InstallationDataHandler { get; set; }
         public ITCData<Case> CaseDataHandler { get; set; }
-        private ITmpInterface TC {get; set; }
-       
+        private ITmpInterface TC { get; set; }
+
         private IPosition MyPositionHandler { get; set; }
         TCApi()
         {
@@ -34,8 +34,7 @@ namespace TrafficControl.DAL.RestSharp
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
             TCAPILIB.ApiUrl = ApiUrl;
-            TCAPILIB.Token = _token;
-            TC = (ITmpInterface)UserDataHandler;
+            TC = (ITmpInterface) UserDataHandler;
         }
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
@@ -216,6 +215,13 @@ namespace TrafficControl.DAL.RestSharp
         public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
         {
             return TC.Post(email, password, confirmedpassword, firstname, lastname, roles, number);
+        }
+
+
+        public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
+            int roles, string number)
+        {
+            return TC.Post(email, password, confirmedpassword, firstname, lastname, roles,number);
         }
 
         public bool CreateUser(User usr)
