@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using Newtonsoft.Json;
+using RestSharp;
+using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
@@ -7,12 +11,16 @@ namespace TrafficControl.DAL.RestSharp
         public TCAPILIB LIB { get; set; }
         public virtual T Get(int id = 0)
         {
-            throw new System.NotImplementedException();
+            var response = LIB.TCAPIconnection(Method.GET, id);
+            var retval = JsonConvert.DeserializeObject<T>(response.Content);
+            return retval;
         }
 
         public bool Delete(int id)
         {
-            throw new System.NotImplementedException();
+            if (id == 0) return false;
+            var response = LIB.TCAPIconnection(Method.DELETE, id);
+            return response.StatusCode == HttpStatusCode.OK;
         }
 
         public ICollection<T> GetAll()
@@ -22,7 +30,10 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool Update(T obj)
         {
-            throw new System.NotImplementedException();
+            //if (T == null) return false;
+            //var response = LIB.TCAPIconnection(Method.PUT, T.Id, T);
+            //return response.StatusCode == HttpStatusCode.OK;
+            return true;
         }
 
         public bool Post(T obj)

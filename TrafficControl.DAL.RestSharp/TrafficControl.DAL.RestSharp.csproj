@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCApi.cs" />
     <Compile Include="TCAPIdummy.cs" />
+    <Compile Include="TCData.cs" />
     <Compile Include="TCDataInstallation.cs" />
     <Compile Include="TCDataCase.cs" />
     <Compile Include="TCDataUser.cs" />

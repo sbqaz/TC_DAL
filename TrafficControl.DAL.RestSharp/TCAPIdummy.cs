@@ -16,6 +16,12 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
+        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles,
+            string number)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool CreateUser(string email, string passWord, string name, int privileges, string number)
         {
             return true;
