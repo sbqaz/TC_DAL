@@ -37,7 +37,7 @@ namespace TrafficControl.DAL.RestSharp
         }
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c)
         {
-            var client = new RestClient(ApiUrl + ApiSubDirectory);
+            var client = new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory);
             var request = new RestRequest(b);
             request.AddHeader("Authorization", Token);
             request.AddJsonBody(c);
@@ -46,7 +46,7 @@ namespace TrafficControl.DAL.RestSharp
         }
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, int c = 0)
         {
-            var client = c == 0 ? new RestClient(ApiUrl + ApiSubDirectory) : new RestClient(ApiUrl + ApiSubDirectory + c);
+            var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory) : new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory + c);
             var request = new RestRequest(b);
             request.AddHeader("Authorization", Token);
             request.AddJsonBody(c);
