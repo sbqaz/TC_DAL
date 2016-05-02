@@ -16,12 +16,7 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
-<<<<<<< HEAD
         public bool ChangePassword(string oPassword, string nPassword, string cPassword)
-=======
-        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles,
-            string number)
->>>>>>> refs/remotes/origin/master
         {
             throw new NotImplementedException();
         }

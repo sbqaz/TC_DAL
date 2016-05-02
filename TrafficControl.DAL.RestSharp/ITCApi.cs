@@ -10,18 +10,8 @@ namespace TrafficControl.DAL.RestSharp
     #region Account
         bool LogIn(string email, string encryptedPassWord);
         bool CreateUser(User usr);
-
-<<<<<<< HEAD
         bool ChangePassword(string oPassword, string nPassword , string cPassword);
         User GetUser();
-
-=======
-        bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname,
-            int roles, string number);
-
-
-        bool ChangePassword(string oPassword, string nPassword);
->>>>>>> refs/remotes/origin/master
         bool UpdateUser(User usr);
         bool UpdateUser(string email, string password, string name, bool smsnotifikation, bool emailnotifikation);
         bool DeleteUser(int id);
