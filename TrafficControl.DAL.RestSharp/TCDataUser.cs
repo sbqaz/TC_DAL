@@ -59,7 +59,7 @@ namespace TrafficControl.DAL.RestSharp
                 Role = roles,
                 PhoneNumber = number
             };
-            var response = LIB.TCAPIconnection("Register", Method.POST, transferOjbectToWebApi);
+            var response = LIB.TCAPIconnection("Register/", Method.POST, transferOjbectToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
         }
         //Account/ChangePassword
@@ -71,26 +71,26 @@ namespace TrafficControl.DAL.RestSharp
                 NewPassword = nPassword,
                 ConfirmPassword = cPassword
             };
-            var response = LIB.TCAPIconnection("ChangePassword", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
+            var response = LIB.TCAPIconnection("ChangePassword/", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
 
         }
         //GET api/Account/UserInfo
         public User Get(int id = 0)
         {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET,id);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.GET,id);
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
         public ICollection<User> GetAll()
         {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<User>>(response.Content);
             return retval;
         }
         public ICollection<User> Get()
         {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<User>>(response.Content);
             return retval;
         }
@@ -106,7 +106,7 @@ namespace TrafficControl.DAL.RestSharp
             };
             
             //if (User == null) return false;
-            var response = LIB.TCAPIconnection("UserInfo",Method.PUT, tmp);
+            var response = LIB.TCAPIconnection("UserInfo/",Method.PUT, tmp);
             return response.StatusCode == HttpStatusCode.OK;
 
         }
