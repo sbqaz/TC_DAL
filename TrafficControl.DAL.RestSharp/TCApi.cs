@@ -28,14 +28,15 @@ namespace TrafficControl.DAL.RestSharp
 
 
         private IPosition MyPositionHandler { get; set; }
+        public TCApi()
 
-        TCApi()
         {
             PositionDataHandler = new TCDataPosition();
             UserDataHandler = new TCDataUser();
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
             TCAPILIB.ApiUrl = ApiUrl;
+
             TCAPILIB.Token = _token;
             TC = (ITmpInterface) UserDataHandler;
         }
@@ -220,6 +221,7 @@ namespace TrafficControl.DAL.RestSharp
         {
             return TC.Post(email, password, confirmedpassword, firstname, lastname, roles, number);
         }
+
 
         public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
             int roles, string number)
