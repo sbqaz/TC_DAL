@@ -38,7 +38,7 @@ namespace TrafficControl.DAL.RestSharp
         public bool SMSNotification { get; set; }
     }
 
-    public class TCDataUser : ITCData<User>
+    public class TCDataUser : ITCData<User> , ITmpInterface
     {
         public TCAPILIB LIB { get; set; }
 
@@ -46,6 +46,7 @@ namespace TrafficControl.DAL.RestSharp
         {
             LIB = new TCAPILIB() { ApiDirectory = "api/Account/" };
         }
+        //Account/Register
         public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
         {
             var transferOjbectToWebApi = new AccountDTO()
@@ -61,6 +62,7 @@ namespace TrafficControl.DAL.RestSharp
             var response = LIB.TCAPIconnection("Register", Method.POST, transferOjbectToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
         }
+        //Account/ChangePassword
         public bool ChangePassword(string oPassword, string nPassword, string cPassword)
         {
             var myRequestFormatInJsonThatNeedToBeFeedToWebApi = new ChangePasswordDTO()
@@ -69,13 +71,14 @@ namespace TrafficControl.DAL.RestSharp
                 NewPassword = nPassword,
                 ConfirmPassword = cPassword
             };
-            var response = LIB.TCAPIconnection("ChangePassword", Method.PUT, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
+            var response = LIB.TCAPIconnection("ChangePassword", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
 
         }
+        //GET api/Account/UserInfo
         public User Get(int id = 0)
         {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET);
+            var response = LIB.TCAPIconnection("UserInfo", Method.GET,id);
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
@@ -107,7 +110,7 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
 
         }
-        //TODO DELETE THIS!!!!
+        //TODO DON'T DELETE THIS!!!!
         public bool Post(User obj)
         {
             return false;
