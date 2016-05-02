@@ -71,26 +71,7 @@ namespace TrafficControl.DAL.RestSharp
         }
 
 
-        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
-        {
-            return CreateUser(email,passWord,fullname,privileges,number,false,false);
-        }
-
-        public bool CreateUser(string email, string passWord, string fullname, int privileges,string number, bool emailnotification = false, bool smsNotification = false)
-        {
-            var str = fullname.Split(' ');
-           // var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
-            var client = new RestClient(ApiUrl + "api/Account/Register");
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", _token); 
-
-            //Temporary function
-            request.AddParameter("application/json", "{\r\n  \"Email\": \""+ email +"\",\r\n  \"Password\": \""+ passWord + "\",\r\n      \"ConfirmPassword\": \""+ passWord +"\"\r\n}", ParameterType.RequestBody);
-            //request.AddJsonBody(usr);
-
-            var response = client.Execute(request);
-            return response.StatusCode == HttpStatusCode.OK; 
-        }
+       
         
         
         public bool ChangePassword(string opassword, string nPassword)
@@ -216,7 +197,28 @@ namespace TrafficControl.DAL.RestSharp
 
         #endregion
         #region Users
+        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
+        {
+            var str = fullname.Split(' ');
+            return 
+            TC.Post(email, passWord, passWord, str[0], str[1], privileges, number);
+        }
 
+        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number, bool emailnotification = false, bool smsNotification = false)
+        {
+            var str = fullname.Split(' ');
+            // var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
+            var client = new RestClient(ApiUrl + "api/Account/Register");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", _token);
+
+            //Temporary function
+            request.AddParameter("application/json", "{\r\n  \"Email\": \"" + email + "\",\r\n  \"Password\": \"" + passWord + "\",\r\n      \"ConfirmPassword\": \"" + passWord + "\"\r\n}", ParameterType.RequestBody);
+            //request.AddJsonBody(usr);
+
+            var response = client.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
         public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
         {
             return TC.Post(email, password, confirmedpassword, firstname, lastname, roles, number);
