@@ -27,7 +27,7 @@ namespace TrafficControl.DAL.RestSharp
         private ITmpInterface TC { get; set; }
 
         private IPosition MyPositionHandler { get; set; }
-        TCApi()
+        public TCApi()
         {
             PositionDataHandler = new TCDataPosition();
             UserDataHandler = new TCDataUser();
