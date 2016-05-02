@@ -42,6 +42,7 @@ namespace TrafficControl.DAL.RestSharp
         public bool LogIn(string email, string password)
         {
 
+<<<<<<< HEAD
             return TCDataAcess.LogIn(email, password);
         }
 
@@ -49,6 +50,38 @@ namespace TrafficControl.DAL.RestSharp
         {
             return UserDataHandler.ChangePassword(opassword,nPassword,cPassword);
 
+=======
+            string tmp = String.Format("grant_type=password&userName={0}&password={1}", email, password);
+            request.AddParameter("application/x-www-form-urlencoded", tmp, ParameterType.RequestBody);
+
+            var response = client.Execute(request);
+
+            var retval = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.Content);
+            
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                _token = retval["token_type"] + " " + retval["access_token"];
+                TCAPILIB.Token = _token;
+                return true;
+            }
+            return false;
+
+        }
+
+
+       
+        
+        
+        public bool ChangePassword(string opassword, string nPassword)
+        {
+            var client = new RestClient(ApiUrl + "api/Account/ChangePassword");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", _token);
+            request.AddHeader("content-type", "application/json");
+            request.AddParameter("application/json", "{\r\n  \"OldPassword\": \""+ opassword + "\",\r\n  \"NewPassword\": \""+ nPassword + "\",\r\n  \"ConfirmPassword\": \""+ nPassword + "\"\r\n}", ParameterType.RequestBody);
+            var response = client.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK;
+>>>>>>> refs/remotes/origin/master
         }
         
         #endregion
@@ -142,6 +175,31 @@ namespace TrafficControl.DAL.RestSharp
         #endregion
         #region Users
         public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
+<<<<<<< HEAD
+=======
+        {
+            var str = fullname.Split(' ');
+            return 
+            TC.Post(email, passWord, passWord, str[0], str[1], privileges, number);
+        }
+
+        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number, bool emailnotification = false, bool smsNotification = false)
+        {
+            var str = fullname.Split(' ');
+            // var usr  = new User() { Password=passWord , Username = email , FirstName = str[0] ,LastName = str[1], Privileges = privileges, Number = number, EmailNotification = emailnotification, SMSNotification = smsNotification};
+            var client = new RestClient(ApiUrl + "api/Account/Register");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", _token);
+
+            //Temporary function
+            request.AddParameter("application/json", "{\r\n  \"Email\": \"" + email + "\",\r\n  \"Password\": \"" + passWord + "\",\r\n      \"ConfirmPassword\": \"" + passWord + "\"\r\n}", ParameterType.RequestBody);
+            //request.AddJsonBody(usr);
+
+            var response = client.Execute(request);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
+>>>>>>> refs/remotes/origin/master
         {
             var str = fullname.Split(' ');
             return 
