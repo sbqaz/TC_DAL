@@ -7,6 +7,7 @@ using TrafficControl.DAL.RestSharp.Types;
 namespace TrafficControl.DAL.RestSharp
 {
 
+
     public abstract class TCData<T> : ITCData<T>
         where T : class
     {
@@ -34,12 +35,13 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<T>(response.Content);
             return retval;
         }
-        public bool Delete(int id)
+
+        public virtual bool Delete(int id)
         {
-            if (id == 0) return false;
-            var response = LIB.TCAPIconnection(Method.DELETE, id);
-            return response.StatusCode == HttpStatusCode.OK;
+            throw new System.NotImplementedException();
         }
+
+
         public ICollection<T> GetAll() 
         {
             var response = LIB.TCAPIconnection(Method.GET);
@@ -52,8 +54,6 @@ namespace TrafficControl.DAL.RestSharp
         {
             return false;
         }
-
-
     }
 
 }

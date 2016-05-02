@@ -41,12 +41,14 @@ namespace TrafficControl.DAL.RestSharp
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
+
             return TCDataAcess.LogIn(email, password);
         }
 
         public bool ChangePassword(string opassword, string nPassword,string cPassword)
         {
             return UserDataHandler.ChangePassword(opassword,nPassword,cPassword);
+
         }
         
         #endregion
@@ -139,6 +141,12 @@ namespace TrafficControl.DAL.RestSharp
 
         #endregion
         #region Users
+        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
+        {
+            var str = fullname.Split(' ');
+            return 
+            TC.Post(email, passWord, passWord, str[0], str[1], privileges, number);
+        }
 
 
         public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
