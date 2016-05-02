@@ -16,6 +16,11 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
+        public bool ChangePassword(string oPassword, string nPassword, string cPassword)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool CreateUser(string email, string passWord, string name, int privileges, string number)
         {
             return true;
@@ -46,6 +51,11 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
+        public bool UpdateUser(string email, string password, string name, bool smsnotifikation, bool emailnotifikation)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ChangeName(string name)
         {
             throw new NotImplementedException();
@@ -69,6 +79,11 @@ namespace TrafficControl.DAL.RestSharp
         public Case GetCase(int caseId)
         {
             return null;
+        }
+
+        public bool CreateCase(int InstalltionId, int observer, string errorDescription)
+        {
+            throw new NotImplementedException();
         }
 
         public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
@@ -104,6 +119,11 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         public bool DeleteInstallation(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateInstalltion(Installation obj)
         {
             throw new NotImplementedException();
         }

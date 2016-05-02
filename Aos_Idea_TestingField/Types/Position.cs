@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TrafficControl.DAL.RestSharp.Types
 {
-    public class Position
+    public class Position : GenericBase<string>
     {
-        public long Id { get; set; }
-        public double Latitude { get; set; }
-        public double Longtitude { get; set; }
+        public override string Id { get; set; }
+        public double Latitude { get; }
+        public double Longtitude { get; }
     }
 }
