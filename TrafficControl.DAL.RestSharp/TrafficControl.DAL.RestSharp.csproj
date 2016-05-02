@@ -59,6 +59,7 @@
     <Compile Include="TCDataCase.cs" />
     <Compile Include="TCDataUser.cs" />
     <Compile Include="TCDataPosition.cs" />
+    <Compile Include="TmpfixInterfaceForDataUser.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\Installation.cs" />
     <Compile Include="Types\Position.cs" />

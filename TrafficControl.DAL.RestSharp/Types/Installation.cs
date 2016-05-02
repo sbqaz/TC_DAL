@@ -10,5 +10,6 @@ namespace TrafficControl.DAL.RestSharp.Types
         public string Address { get; set; }
         public Position Position { get; set; }
         public string QRKode { get; set; }
+        public int Status { get; set; }
     }
 }

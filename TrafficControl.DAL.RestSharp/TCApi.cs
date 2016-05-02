@@ -24,8 +24,8 @@ namespace TrafficControl.DAL.RestSharp
         public ITCData<User> UserDataHandler { get; set; }
         public ITCData<Installation> InstallationDataHandler { get; set; }
         public ITCData<Case> CaseDataHandler { get; set; }
-
-
+        private ITmpInterface TC {get; set; }
+       
         private IPosition MyPositionHandler { get; set; }
         TCApi()
         {
@@ -35,6 +35,7 @@ namespace TrafficControl.DAL.RestSharp
             InstallationDataHandler = new TCDataInstallation();
             TCAPILIB.ApiUrl = ApiUrl;
             TCAPILIB.Token = _token;
+            TC = (ITmpInterface)UserDataHandler;
         }
 #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
@@ -210,34 +211,39 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         #endregion
-#region Users
+        #region Users
 
+        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
+        {
+            return TC.Post(email, password, confirmedpassword, firstname, lastname, roles, number);
+        }
 
-            
         public bool CreateUser(User usr)
         {
+            
             var response = TCAPIconnection("api/User", Method.POST, 0, usr);
             return response.StatusCode == HttpStatusCode.OK;
         }
 
         public User GetUser()
         {
-            var response = TCAPIconnection("api/User", Method.GET);
-            if (response.Content == "[]")
-            {
-                return null;
-            }
-            else
-            {
-                var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
-                CurUser = retval[0];
-                return CurUser;
-            }
+            return UserDataHandler.Get();
+            //var response = TCAPIconnection("api/User", Method.GET);
+            //if (response.Content == "[]")
+            //{
+            //    return null;
+            //}
+            //else
+            //{
+            //    var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
+            //    CurUser = retval[0];
+            //    return CurUser;
+            //}
              
         }
 
         
-
+        //TODO maybe should delete
         public bool UpdateUser(string email, string passWord, string name, int privileges, string id)
         {
             var str = name.Split(' ');
@@ -250,9 +256,10 @@ namespace TrafficControl.DAL.RestSharp
         {
             if (usr == null)
                 usr = CurUser;
-            var response = TCAPIconnection("api/User", Method.PUT, 0, usr);
-            return response.StatusCode == HttpStatusCode.OK;
+            return UserDataHandler.Update(usr);
         }
+
+        //README don't call this func..
 
         public bool DeleteUser(int id = 0)
         {
@@ -271,7 +278,7 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         #endregion
-#region Helper functions
+        #region Helper functions
         // ReSharper disable once InconsistentNaming
         private IRestResponse TCAPIconnection(string a, Method b,long c = 0,object d = null)
         {
