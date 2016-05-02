@@ -29,7 +29,7 @@ namespace TrafficControl.DAL.RestSharp
         public string ConfirmPassword { get; set; }
     }
 
-    public class UpdateUserInfoDTO
+    internal class UpdateUserInfoDTO
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -38,16 +38,17 @@ namespace TrafficControl.DAL.RestSharp
         public bool SMSNotification { get; set; }
     }
 
-    public class TCDataUser : ITCData<User> , ITmpInterface
+    public class TCDataUser : TCData<User> 
     {
-        public TCAPILIB LIB { get; set; }
-
         public TCDataUser()
         {
-            LIB = new TCAPILIB() { ApiDirectory = "api/Account/" };
+            LIB = new TCDataAcess() { ApiDirectory = "api/Account/" };
         }
+        
+
         //Account/Register
-        public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
+
+        public override bool Post(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
         {
             var transferOjbectToWebApi = new AccountDTO()
             {
@@ -59,11 +60,11 @@ namespace TrafficControl.DAL.RestSharp
                 Role = roles,
                 PhoneNumber = number
             };
-            var response = LIB.TCAPIconnection("Register", Method.POST, transferOjbectToWebApi);
+            var response = LIB.TCAPIconnection("Register/", Method.POST, transferOjbectToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
         }
         //Account/ChangePassword
-        public bool ChangePassword(string oPassword, string nPassword, string cPassword)
+        public override bool ChangePassword(string oPassword, string nPassword, string cPassword)
         {
             var myRequestFormatInJsonThatNeedToBeFeedToWebApi = new ChangePasswordDTO()
             {
@@ -71,55 +72,31 @@ namespace TrafficControl.DAL.RestSharp
                 NewPassword = nPassword,
                 ConfirmPassword = cPassword
             };
-            var response = LIB.TCAPIconnection("ChangePassword", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
+            var response = LIB.TCAPIconnection("ChangePassword/", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
-
         }
         //GET api/Account/UserInfo
-        public User Get(int id = 0)
+        public override User Get(int id = 0)
         {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET,id);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.GET,id);
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
-        public ICollection<User> GetAll()
-        {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<User>>(response.Content);
-            return retval;
-        }
-        public ICollection<User> Get()
-        {
-            var response = LIB.TCAPIconnection("UserInfo", Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<User>>(response.Content);
-            return retval;
-        }
-        public bool Update(User User)
+        public override bool Update(User user)
         {
             var tmp = new UpdateUserInfoDTO()
             {
-                EmailNotification = User.EmailNotification,
-                FirstName = User.FirstName,
-                LastName = User.LastName,
-                PhoneNumber = User.Number,
-                SMSNotification = User.SMSNotification
+                EmailNotification = user.EmailNotification,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.Number,
+                SMSNotification = user.SMSNotification
             };
             
             //if (User == null) return false;
-            var response = LIB.TCAPIconnection("UserInfo",Method.PUT, tmp);
+            var response = LIB.TCAPIconnection("UserInfo/",Method.PUT, tmp);
             return response.StatusCode == HttpStatusCode.OK;
 
-        }
-        //TODO DON'T DELETE THIS!!!!
-        public bool Post(User obj)
-        {
-            return false;
-        }
-        public bool Delete(int id)
-        {
-            if (id == 0) return false;
-            var response = LIB.TCAPIconnection(Method.DELETE, id);
-            return response.StatusCode == HttpStatusCode.OK;
         }
 
 

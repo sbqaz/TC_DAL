@@ -10,48 +10,25 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public class TCDataCase : ITCData<Case>
+    public class TCDataCase : TCData<Case>
     {
-        public TCAPILIB LIB { get; set; }
-
         public TCDataCase()
         {
-            LIB = new TCAPILIB() {ApiDirectory = "api/Case"};
+            LIB = new TCDataAcess() {ApiDirectory = "api/Case"};
         }
-        public bool Post(Case obj)
+        public override bool Post(Case obj)
         {
-            throw new NotImplementedException();
-        }
-        public Case Get(int id = 0)
-        {
-            var response = LIB.TCAPIconnection(Method.GET, id);
-            var retval = JsonConvert.DeserializeObject<Case>(response.Content);
-            return retval;
-        }
-        public ICollection<Case> GetAll()
-        {
-            var response = LIB.TCAPIconnection(Method.GET);
-            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
-            return retval;
-        }
-        public bool Update(Case Case)
-        {
-            if (Case == null) return false;
-            var response = LIB.TCAPIconnection(Method.PUT, Case.Id, Case);
+            if (obj.InstallationsID == 0) return false;
+            var response = LIB.TCAPIconnection(Method.PUT,0,obj);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
-        public bool Delete(int id)
+        public override bool Update(Case user)
         {
-            if (id == 0) return false;
-            var response = LIB.TCAPIconnection(Method.DELETE, id);
+            if (user == null) return false;
+            var response = LIB.TCAPIconnection(Method.PUT, user.Id, user);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
-
-
-       
-     
+ 
     }
     
 }
