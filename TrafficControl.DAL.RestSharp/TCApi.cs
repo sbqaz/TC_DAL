@@ -239,18 +239,6 @@ namespace TrafficControl.DAL.RestSharp
         public User GetUser()
         {
             return UserDataHandler.Get();
-            //var response = TCAPIconnection("api/User", Method.GET);
-            //if (response.Content == "[]")
-            //{
-            //    return null;
-            //}
-            //else
-            //{
-            //    var retval = JsonConvert.DeserializeObject<List<User>>(response.Content);
-            //    CurUser = retval[0];
-            //    return CurUser;
-            //}
-             
         }
 
         
