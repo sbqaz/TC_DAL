@@ -38,13 +38,13 @@ namespace TrafficControl.DAL.RestSharp
         public bool SMSNotification { get; set; }
     }
 
-    public class TCDataUser : TCData<User> 
+    public class TCDataUser : TCData<User>
     {
         public TCDataUser()
         {
             LIB = new TCDataAcess() { ApiDirectory = "api/Account/" };
         }
-        
+
 
         //Account/Register
 
@@ -78,7 +78,7 @@ namespace TrafficControl.DAL.RestSharp
         //GET api/Account/UserInfo
         public override User Get(int id = 0)
         {
-            var response = LIB.TCAPIconnection("UserInfo/", Method.GET,id);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.GET, id);
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
@@ -92,9 +92,9 @@ namespace TrafficControl.DAL.RestSharp
                 PhoneNumber = user.Number,
                 SMSNotification = user.SMSNotification
             };
-            
+
             //if (User == null) return false;
-            var response = LIB.TCAPIconnection("UserInfo/",Method.PUT, tmp);
+            var response = LIB.TCAPIconnection("UserInfo/", Method.PUT, tmp);
             return response.StatusCode == HttpStatusCode.OK;
 
         }

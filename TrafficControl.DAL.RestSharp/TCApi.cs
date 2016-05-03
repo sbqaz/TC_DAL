@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
 
-//TODO Maybe I should use one of the solid principle to split the interface up?
 
 namespace TrafficControl.DAL.RestSharp
 {
@@ -26,18 +25,15 @@ namespace TrafficControl.DAL.RestSharp
         public ITCData<Case> CaseDataHandler { get; set; }
 
         public TCApi()
-
         {
             PositionDataHandler = new TCDataPosition();
             UserDataHandler = new TCDataUser();
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
             TCDataAcess.ApiUrl = ApiUrl;
-
             TCDataAcess.Token = _token;
         }
-
-#region Account
+        #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
@@ -50,7 +46,7 @@ namespace TrafficControl.DAL.RestSharp
         }
         
         #endregion
-#region Cases
+        #region Cases
         public ICollection<Case> GetCases()
         {
             return CaseDataHandler.GetAll();
@@ -139,15 +135,8 @@ namespace TrafficControl.DAL.RestSharp
 
         #endregion
         #region Users
-        public bool CreateUser(string email, string passWord, string fullname, int privileges, string number)
-        {
-            var str = fullname.Split(' ');
-            return 
-            UserDataHandler.Post(email, passWord, passWord, str[0], str[1], privileges, number);
-        }
-
-
-        public bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
+    
+        public bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname,
             int roles, string number)
         {
             return UserDataHandler.Post(email, password, confirmedpassword, firstname, lastname, roles,number);
