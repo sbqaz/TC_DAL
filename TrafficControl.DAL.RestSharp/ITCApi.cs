@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Dynamic;
+﻿using System.Collections.Generic;
 using TrafficControl.DAL.RestSharp.Types;
 namespace TrafficControl.DAL.RestSharp
 {
@@ -9,6 +6,9 @@ namespace TrafficControl.DAL.RestSharp
     {
     #region Account
         bool LogIn(string email, string encryptedPassWord);
+
+        bool CreateUser(string email, string password, string confirmedpassword, string firstname, string lastname,
+            int roles, string number);
         bool CreateUser(User usr);
         bool ChangePassword(string oPassword, string nPassword , string cPassword);
         User GetUser();
