@@ -74,7 +74,30 @@ namespace TrafficControl.DAL.RestSharp
 
         public ICollection<Case> GetMyCases()
         {
-            return null;
+            var retval = new List<Case>();
+
+            retval.Add(new Case()
+            {
+                Id = 1,
+                Status = 0,
+                Worker = "Test1"
+            });
+
+            retval.Add(new Case()
+            {
+                Id = 2,
+                Status = 1,
+                Worker = "Test2"
+            });
+
+            retval.Add(new Case()
+            {
+                Id = 3,
+                Status = 2,
+                Worker = "Test3"
+            });
+
+            return retval;
         }
 
         public Case GetCase()
