@@ -12,6 +12,8 @@ namespace TrafficControl.DAL.RestSharp
 {
     public class TCDataCase : TCData<Case>
     {
+        public ICollection<Case> MyCases => GetMyCases();
+
         public TCDataCase()
         {
             LIB = new TCDataAcess() {ApiDirectory = "api/Case/"};
@@ -35,10 +37,31 @@ namespace TrafficControl.DAL.RestSharp
             var response = LIB.TCAPIconnection("ClaimCase/",Method.PUT, id);
             return response.StatusCode == HttpStatusCode.OK;
         }
+        public ICollection<Case> GetMyCases()
+        {
+            var response = LIB.TCAPIconnection("MyCases/",Method.GET);
+            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
+            return retval;
+        }
+        public override Case Get(int id)
+        {
+            if (id != 0)
+            {
+                return base.Get(id);
+            }
+            throw new ArgumentException("id shouldn't be zero");
+        }
+        public ICollection<Case> Get()
+        {
+            var response = LIB.TCAPIconnection(Method.GET);
+            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
+            return retval;
+
+        }
 
         public override ICollection<Case> GetAll()
         {
-            var response = LIB.TCAPIconnection("Mycases/", Method.GET);
+            var response = LIB.TCAPIconnection(Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }

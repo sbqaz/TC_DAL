@@ -15,9 +15,9 @@ namespace TrafficControl.DAL.RestSharp
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private User CurUser { get; set; }
         public ITCData<Position> PositionDataHandler { get; set; }
-        public TCData<User> UserDataHandler { get; set; }
+        public TCDataUser UserDataHandler { get; set; }
         public ITCData<Installation> InstallationDataHandler { get; set; }
-        public ITCData<Case> CaseDataHandler { get; set; }
+        public TCDataCase CaseDataHandler { get; set; }
 
         public TCApi()
         {
@@ -44,12 +44,21 @@ namespace TrafficControl.DAL.RestSharp
         #region Cases
         public ICollection<Case> GetMyCases()
         {
-            return CaseDataHandler.GetAll();
+            return CaseDataHandler.MyCases;
         }
 
-        public Case GetCase(int id = 0)
+        public Case GetCase(int id)
         {
             return CaseDataHandler.Get(id);
+        }
+
+        public ICollection<Case> GetCases()
+        {
+            return CaseDataHandler.GetAll(); 
+        }
+        public bool ClaimCases(int id)
+        {
+            return CaseDataHandler.ClaimCase(id);
         }
 
         public bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription)

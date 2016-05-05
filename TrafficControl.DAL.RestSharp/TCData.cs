@@ -53,10 +53,9 @@ namespace TrafficControl.DAL.RestSharp
         }
             
 
-        public virtual bool ChangePassword(string opassword, string nPassword, string cPassword)
-        {
-            return false;
-        }
+
+
+
     }
 
 }

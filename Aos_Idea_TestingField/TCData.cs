@@ -25,16 +25,16 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        public virtual ICollection<T> GetAll() 
+        public virtual ICollection<T> GetAll()
         {
-            throw new System.NotImplementedException();
+            return null;
         }
 
         public abstract bool Update(T obj);
 
         public bool Post(T obj)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
 

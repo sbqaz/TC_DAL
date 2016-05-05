@@ -36,7 +36,7 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
         }
         //Account/ChangePassword
-        public override bool ChangePassword(string oPassword, string nPassword, string cPassword)
+        public bool ChangePassword(string oPassword, string nPassword, string cPassword)
         {
             var myRequestFormatInJsonThatNeedToBeFeedToWebApi = new ChangePasswordDTO()
             {
