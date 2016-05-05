@@ -79,21 +79,21 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Case()
             {
                 Id = 1,
-                Status = 0,
+                Status = CaseStatus.Created,
                 Worker = "Test1"
             });
 
             retval.Add(new Case()
             {
                 Id = 2,
-                Status = 1,
+                Status = CaseStatus.Started,
                 Worker = "Test2"
             });
 
             retval.Add(new Case()
             {
                 Id = 3,
-                Status = 2,
+                Status = CaseStatus.Done,
                 Worker = "Test3"
             });
 
