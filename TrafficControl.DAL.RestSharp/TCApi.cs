@@ -1,23 +1,18 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
-using Newtonsoft.Json;
-using RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
-
 
 namespace TrafficControl.DAL.RestSharp
 {
+    // ReSharper disable once InconsistentNaming
     public sealed class TCApi : ITCApi
     {
         
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         //private const string ApiUrl = @"localhost:49527/";
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _token = null;
+
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private User CurUser { get; set; }
         public ITCData<Position> PositionDataHandler { get; set; }
         public TCData<User> UserDataHandler { get; set; }
@@ -57,11 +52,11 @@ namespace TrafficControl.DAL.RestSharp
             return CaseDataHandler.Get(id);
         }
 
-        public bool CreateCase(int InstalltionId, int observer, string errorDescription)
+        public bool CreateCase(int installtionId, int observer, string errorDescription)
         {
             var myCase = new Case()
             {
-                InstallationsID = InstalltionId,
+                InstallationsID = installtionId,
                 Observer = observer,
                 ErrorDescription = errorDescription,
                 Status = 0 
@@ -153,11 +148,11 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         
-        public bool UpdateUser( string firstname,string lastname,string number, bool SMSNotification , bool emailNotification)
+        public bool UpdateUser( string firstname,string lastname,string number, bool smsNotification , bool emailNotification)
         {
             var usr = new User()
             {
-                 FirstName = firstname,LastName = lastname,Number = number,SMSNotification = SMSNotification,EmailNotification = emailNotification
+                 FirstName = firstname,LastName = lastname,Number = number,SMSNotification = smsNotification,EmailNotification = emailNotification
             };
             return UserDataHandler.Update(usr);
         }
