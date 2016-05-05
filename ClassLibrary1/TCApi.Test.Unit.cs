@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1
+namespace DAL.Test.Unit
 {
-    public class DALAccountTest
+
+    class TCApiTests
     {
     }
 }

@@ -14,7 +14,7 @@ namespace TrafficControl.DAL.RestSharp
     {
         public TCDataPosition()
         {
-                LIB = new TCDataAcess() {ApiDirectory = "api/position/"};
+                LIB = new TCDataConnection() {ApiDirectory = "api/position/"};
         }
         public override bool Post(Position obj)
         {

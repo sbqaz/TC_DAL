@@ -14,7 +14,7 @@ namespace TrafficControl.DAL.RestSharp
     {
         public TCDataUser()
         {
-            LIB = new TCDataAcess() { ApiDirectory = "api/Account/" };
+            LIB = new TCDataConnection() { ApiDirectory = "api/Account/" };
         }
 
 

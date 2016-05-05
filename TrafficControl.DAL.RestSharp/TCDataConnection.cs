@@ -11,7 +11,7 @@ using RestSharp;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public class TCDataAcess
+    public class TCDataConnection
     {
         public static string ApiUrl { get; set; }
         public static string Token { get; set; }
@@ -61,7 +61,7 @@ namespace TrafficControl.DAL.RestSharp
             if (email == null) throw new ArgumentNullException(nameof(email));
             if (password == null) throw new ArgumentNullException(nameof(password));
 
-            var client = new RestClient(TCDataAcess.ApiUrl + "token");
+            var client = new RestClient(TCDataConnection.ApiUrl + "token");
             var request = new RestRequest(Method.POST);
 
             request.AddHeader("content-type", "application/x-www-form-urlencoded");
@@ -76,7 +76,7 @@ namespace TrafficControl.DAL.RestSharp
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var _token = retval["token_type"] + " " + retval["access_token"];
-                TCDataAcess.Token = _token;
+                TCDataConnection.Token = _token;
                 return true;
             }
             return false;

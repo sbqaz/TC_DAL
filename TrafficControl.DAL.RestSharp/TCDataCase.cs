@@ -16,7 +16,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public TCDataCase()
         {
-            LIB = new TCDataAcess() {ApiDirectory = "api/Case/"};
+            LIB = new TCDataConnection() {ApiDirectory = "api/Case/"};
         }
         public override bool Post(Case obj)
         {

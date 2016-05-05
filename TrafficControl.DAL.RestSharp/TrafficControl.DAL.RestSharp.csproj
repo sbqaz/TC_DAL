@@ -52,7 +52,7 @@
     <Compile Include="Types\ChangePasswordDTO.cs" />
     <Compile Include="Types\AccountDTO.cs" />
     <Compile Include="ITCData.cs" />
-    <Compile Include="TCAPILIB.cs" />
+    <Compile Include="TCDataConnection.cs" />
     <Compile Include="ITCApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TCApi.cs" />

@@ -25,15 +25,15 @@ namespace TrafficControl.DAL.RestSharp
             UserDataHandler = new TCDataUser();
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
-            TCDataAcess.ApiUrl = ApiUrl;
-            TCDataAcess.Token = _token;
+            TCDataConnection.ApiUrl = ApiUrl;
+            TCDataConnection.Token = _token;
         }
 #endregion
         #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
-            return TCDataAcess.LogIn(email, password);
+            return TCDataConnection.LogIn(email, password);
         }
 
         public bool ChangePassword(string opassword, string nPassword,string cPassword)

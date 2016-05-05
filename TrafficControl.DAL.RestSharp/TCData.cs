@@ -2,18 +2,15 @@
 using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
-using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
-
-
-
+    // ReSharper disable once InconsistentNaming
     public abstract class TCData<T> : ITCData<T>
         where T : class
     {
 
-        public TCDataAcess LIB { get; set; }
+        public TCDataConnection LIB { get; set; }
 
 
         //README if we want error checking, we can override this func

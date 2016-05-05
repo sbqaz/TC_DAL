@@ -11,7 +11,7 @@ namespace TrafficControl.DAL.RestSharp
 {
     public interface ITCData<T>
     {
-        TCDataAcess LIB { get; set; }
+        TCDataConnection LIB { get; set; }
         T Get(int id=0);
         bool Delete(int id);
         ICollection<T> GetAll();

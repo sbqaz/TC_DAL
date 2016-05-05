@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,8 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DALAccountTest.cs" />
+    <Compile Include="TCApi.Test.Unit.cs" />
+    <Compile Include="TCDataInstallation.Test.Unit.cs" />
+    <Compile Include="TCDataAccount.Test.Unit.cs" />
+    <Compile Include="TCData.Test.Unit.cs" />
+    <Compile Include="TCDataConnection.Test.Unit.cs" />
+    <Compile Include="TCDataUser.Test.Unit.cs" />
+    <Compile Include="TCDataCase.Test.Unit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrafficControl.DAL.RestSharp\TrafficControl.DAL.RestSharp.csproj">
+      <Project>{99424c50-f132-4de5-a9b1-919cfea3f26b}</Project>
+      <Name>TrafficControl.DAL.RestSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
