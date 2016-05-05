@@ -14,7 +14,7 @@ namespace TrafficControl.DAL.RestSharp
     {
         public TCDataCase()
         {
-            LIB = new TCDataAcess() {ApiDirectory = "api/Case"};
+            LIB = new TCDataAcess() {ApiDirectory = "api/Case/"};
         }
         public override bool Post(Case obj)
         {
@@ -28,7 +28,19 @@ namespace TrafficControl.DAL.RestSharp
             var response = LIB.TCAPIconnection(Method.PUT, user.Id, user);
             return response.StatusCode == HttpStatusCode.OK;
         }
- 
+
+        public bool ClaimCase(int id)
+        {
+            if (id == 0) return false;
+            var response = LIB.TCAPIconnection("ClaimCase/",Method.PUT, id);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
+
+        public override ICollection<Case> GetAll()
+        {
+            var response = LIB.TCAPIconnection("Mycases/", Method.GET);
+            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
+            return retval;
+        }
     }
-    
 }

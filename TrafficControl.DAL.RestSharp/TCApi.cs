@@ -47,7 +47,7 @@ namespace TrafficControl.DAL.RestSharp
         
         #endregion
         #region Cases
-        public ICollection<Case> GetCases()
+        public ICollection<Case> GetMyCases()
         {
             return CaseDataHandler.GetAll();
         }

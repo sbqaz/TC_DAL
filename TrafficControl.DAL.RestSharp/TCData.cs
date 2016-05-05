@@ -45,7 +45,7 @@ namespace TrafficControl.DAL.RestSharp
         }
 
 
-        public ICollection<T> GetAll() 
+        public virtual ICollection<T> GetAll() 
         {
             var response = LIB.TCAPIconnection(Method.GET);
             var retval = JsonConvert.DeserializeObject<ICollection<T>>(response.Content);

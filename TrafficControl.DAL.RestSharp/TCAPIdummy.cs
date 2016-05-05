@@ -72,7 +72,7 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
 
-        public ICollection<Case> GetCases()
+        public ICollection<Case> GetMyCases()
         {
             return null;
         }

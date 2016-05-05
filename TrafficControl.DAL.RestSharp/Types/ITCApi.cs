@@ -17,7 +17,7 @@ namespace TrafficControl.DAL.RestSharp
         bool DeleteUser(int id);
         #endregion
     #region Cases
-        ICollection<Case> GetCases();
+        ICollection<Case> GetMyCases();
         Case GetCase(int id);
         bool CreateCase(int InstalltionId, int observer, string errorDescription);
         bool DeleteCase(int id);
