@@ -13,13 +13,13 @@ namespace TrafficControl.DAL.RestSharp
         bool ChangePassword(string oPassword, string nPassword , string cPassword);
         User GetUser();
         bool UpdateUser(User usr);
-        bool UpdateUser(string email, string password, string name, bool smsnotifikation, bool emailnotifikation);
+        bool UpdateUser(string email, string password, string name, bool smsNotification, bool emailnotifikation);
         bool DeleteUser(int id);
         #endregion
     #region Cases
         ICollection<Case> GetMyCases();
         Case GetCase(int id);
-        bool CreateCase(int InstalltionId, int observer, string errorDescription);
+        bool CreateCase(int installtionId, int observer, string errorDescription);
         bool DeleteCase(int id);
         bool UpdateCase(Case myCase);
         #endregion

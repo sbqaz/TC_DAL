@@ -57,7 +57,7 @@ namespace TrafficControl.DAL.RestSharp
             return true;
         }
 
-        public bool UpdateUser(string email, string password, string name, bool smsnotifikation, bool emailnotifikation)
+        public bool UpdateUser(string email, string password, string name, bool smsNotification, bool emailnotifikation)
         {
             throw new NotImplementedException();
         }
@@ -87,7 +87,7 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
-        public bool CreateCase(int InstalltionId, int observer, string errorDescription)
+        public bool CreateCase(int installtionId, int observer, string errorDescription)
         {
             throw new NotImplementedException();
         }
