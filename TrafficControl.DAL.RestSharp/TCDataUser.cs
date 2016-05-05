@@ -10,34 +10,6 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
-
-    internal class AccountDTO
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public int Role { get; set; }
-    }
-
-    internal class ChangePasswordDTO
-    {
-        public string OldPassword { get; set; }
-        public string NewPassword { get; set; }
-        public string ConfirmPassword { get; set; }
-    }
-
-    internal class UpdateUserInfoDTO
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool EmailNotification { get; set; }
-        public bool SMSNotification { get; set; }
-    }
-
     public class TCDataUser : TCData<User>
     {
         public TCDataUser()
