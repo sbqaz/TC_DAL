@@ -71,6 +71,11 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
+        public bool LogOut()
+        {
+            var response = LIB.TCAPIconnection("Logout/", Method.POST);
+            return response.StatusCode == HttpStatusCode.OK;
+        }
 
 
 

@@ -6,7 +6,7 @@ namespace TrafficControl.DAL.RestSharp
     // ReSharper disable once InconsistentNaming
     public sealed class TCApi : ITCApi
     {
-        
+        #region Setup
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
         //private const string ApiUrl = @"localhost:49527/";
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
@@ -15,8 +15,8 @@ namespace TrafficControl.DAL.RestSharp
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private User CurUser { get; set; }
         public ITCData<Position> PositionDataHandler { get; set; }
-        public TCDataUser UserDataHandler { get; set; }
         public ITCData<Installation> InstallationDataHandler { get; set; }
+        public TCDataUser UserDataHandler { get; set; }
         public TCDataCase CaseDataHandler { get; set; }
 
         public TCApi()
@@ -28,6 +28,7 @@ namespace TrafficControl.DAL.RestSharp
             TCDataAcess.ApiUrl = ApiUrl;
             TCDataAcess.Token = _token;
         }
+#endregion
         #region Account
         //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
@@ -77,12 +78,10 @@ namespace TrafficControl.DAL.RestSharp
         {
             return CaseDataHandler.Delete(id);
         }
-
         public bool UpdateCase(Case myCase)
         {
             return CaseDataHandler.Update(myCase);
         }
-
         #endregion
         #region Installations
         public ICollection<Installation> GetInstallations()
