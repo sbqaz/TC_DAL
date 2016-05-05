@@ -19,7 +19,7 @@ namespace TrafficControl.DAL.RestSharp
     #region Cases
         ICollection<Case> GetMyCases();
         Case GetCase(int id);
-        bool CreateCase(int installtionId, int observer, string errorDescription);
+        bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription);
         bool DeleteCase(int id);
         bool UpdateCase(Case myCase);
         #endregion

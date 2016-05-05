@@ -48,6 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Types\CaseStatus.cs" />
+    <Compile Include="Types\ChangePasswordDTO.cs" />
+    <Compile Include="Types\AccountDTO.cs" />
     <Compile Include="ITCData.cs" />
     <Compile Include="TCAPILIB.cs" />
     <Compile Include="ITCApi.cs" />
@@ -59,12 +62,12 @@
     <Compile Include="TCDataCase.cs" />
     <Compile Include="TCDataUser.cs" />
     <Compile Include="TCDataPosition.cs" />
-    <Compile Include="Types\BaseType.cs" />
     <Compile Include="Types\Case.cs" />
-    <Compile Include="Types\GenericBase.cs" />
     <Compile Include="Types\Installation.cs" />
+    <Compile Include="Types\ObserverSelection.cs" />
     <Compile Include="Types\Position.cs" />
     <Compile Include="Types\User.cs" />
+    <Compile Include="Types\UpdateUserInfoDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

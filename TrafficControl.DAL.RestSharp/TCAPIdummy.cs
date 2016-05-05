@@ -87,7 +87,7 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
-        public bool CreateCase(int installtionId, int observer, string errorDescription)
+        public bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription)
         {
             throw new NotImplementedException();
         }
