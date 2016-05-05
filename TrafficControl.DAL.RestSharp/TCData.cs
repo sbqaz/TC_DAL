@@ -33,6 +33,7 @@ namespace TrafficControl.DAL.RestSharp
         public virtual T Get(int id = 0)
         {
             var response = LIB.TCAPIconnection(Method.GET, id);
+            if (response.StatusCode != HttpStatusCode.OK) return null;
             var retval = JsonConvert.DeserializeObject<T>(response.Content);
             return retval;
         }
@@ -48,6 +49,7 @@ namespace TrafficControl.DAL.RestSharp
         public virtual ICollection<T> GetAll() 
         {
             var response = LIB.TCAPIconnection(Method.GET);
+            if (response.StatusCode != HttpStatusCode.OK) return null;
             var retval = JsonConvert.DeserializeObject<ICollection<T>>(response.Content);
             return retval;
         }

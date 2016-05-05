@@ -51,6 +51,7 @@ namespace TrafficControl.DAL.RestSharp
         public override User Get(int id = 0)
         {
             var response = LIB.TCAPIconnection("UserInfo/", Method.GET, id);
+            if (response.StatusCode != HttpStatusCode.OK) return null;
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
