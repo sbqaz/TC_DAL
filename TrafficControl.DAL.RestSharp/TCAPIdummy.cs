@@ -80,21 +80,24 @@ namespace TrafficControl.DAL.RestSharp
             {
                 Id = 1,
                 Status = CaseStatus.Created,
-                Worker = "Test1"
+                Worker = "Test1",
+                Time = new DateTime(2016, 5, 1, 1, 42, 16),
             });
 
             retval.Add(new Case()
             {
                 Id = 2,
                 Status = CaseStatus.Started,
-                Worker = "Test2"
+                Worker = "Test2",
+                Time = new DateTime(2016, 5, 5, 15, 42, 2),
             });
 
             retval.Add(new Case()
             {
                 Id = 3,
                 Status = CaseStatus.Done,
-                Worker = "Test3"
+                Worker = "Test3",
+                Time = new DateTime(2015, 12, 24, 18, 42, 10),
             });
 
             return retval;
@@ -145,21 +148,24 @@ namespace TrafficControl.DAL.RestSharp
             {
                 Id = 11,
                 Status = CaseStatus.Created,
-                Worker = "Test11"
+                Worker = "Test11",
+                Time = new DateTime(2016, 5, 9, 9, 42, 52),
             });
 
             retval.Add(new Case()
             {
                 Id = 22,
                 Status = CaseStatus.Started,
-                Worker = "Test22"
+                Worker = "Test22",
+                Time = new DateTime(2016, 1, 22, 23, 58, 52),
             });
 
             retval.Add(new Case()
             {
                 Id = 33,
                 Status = CaseStatus.Done,
-                Worker = "Test33"
+                Worker = "Test33",
+                Time = new DateTime(2016, 5, 8, 15, 2, 22),
             });
 
             return retval;
