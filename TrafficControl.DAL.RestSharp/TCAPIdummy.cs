@@ -137,6 +137,11 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
 
+        public ICollection<Case> GetCases()
+        {
+            throw new NotImplementedException();
+        }
+
         ICollection<Installation> ITCApi.GetInstallations()
         {
             var retval = new List<Installation>();
