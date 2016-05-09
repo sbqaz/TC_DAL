@@ -176,7 +176,6 @@ namespace TrafficControl.DAL.RestSharp
             var retval = new List<Installation>();
             retval.Add(new Installation()
             {
-                Address = "Adresse Et",
                 Id = 1,
                 Name = "Navn Et",
                 Position = new Position()
@@ -185,13 +184,11 @@ namespace TrafficControl.DAL.RestSharp
                     Latitude = 56.460178,
                     Longtitude = 10.043286
                 },
-                QRKode = "What?",
                 Status = 0
             });
 
             retval.Add(new Installation()
             {
-                Address = "Adresse To",
                 Id = 2,
                 Name = "Navn To",
                 Position = new Position()
@@ -200,13 +197,11 @@ namespace TrafficControl.DAL.RestSharp
                     Latitude = 56.459859,
                     Longtitude = 10.030006
                 },
-                QRKode = "What??",
                 Status = 1
             });
 
             retval.Add(new Installation()
             {
-                Address = "Adresse Tre",
                 Id = 3,
                 Name = "Navn Tre",
                 Position = new Position()
@@ -215,7 +210,6 @@ namespace TrafficControl.DAL.RestSharp
                     Latitude = 56.463867,
                     Longtitude = 10.032424
                 },
-                QRKode = "What???",
                 Status = 2
             });
 
