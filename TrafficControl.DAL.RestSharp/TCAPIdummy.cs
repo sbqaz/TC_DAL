@@ -139,7 +139,30 @@ namespace TrafficControl.DAL.RestSharp
 
         public ICollection<Case> GetCases()
         {
-            throw new NotImplementedException();
+            var retval = new List<Case>();
+
+            retval.Add(new Case()
+            {
+                Id = 11,
+                Status = CaseStatus.Created,
+                Worker = "Test11"
+            });
+
+            retval.Add(new Case()
+            {
+                Id = 22,
+                Status = CaseStatus.Started,
+                Worker = "Test22"
+            });
+
+            retval.Add(new Case()
+            {
+                Id = 33,
+                Status = CaseStatus.Done,
+                Worker = "Test33"
+            });
+
+            return retval;
         }
 
         ICollection<Installation> ITCApi.GetInstallations()
