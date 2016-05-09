@@ -11,11 +11,15 @@ using RestSharp;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public class TCDataConnection
+    public class TCDataConnection : ITCDataConnection
     {
         public static string ApiUrl { get; set; }
         public static string Token { get; set; }
         public string ApiDirectory { get; set; }
+        public TCDataConnection()
+        {
+            Token = "";
+        }
         public IRestResponse TCAPIconnection( Method b, long c = 0, object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
@@ -29,6 +33,7 @@ namespace TrafficControl.DAL.RestSharp
             return response;
         }
         // ReSharper disable once InconsistentNaming
+        
         public IRestResponse TCAPIconnection( Method b, string c)
         {
             var client = c == "" ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
