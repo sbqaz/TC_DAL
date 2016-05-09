@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using RestSharp;
 using TrafficControl.DAL.RestSharp;
 
 namespace DAL.Test.Unit
@@ -13,11 +15,12 @@ namespace DAL.Test.Unit
     public class TCDataConnectionTests
     {
         private TCDataConnection uut { get; set; }
-
+        private TCDataConnection uutWithPosition { get; set; }
         [SetUp]
         public void Init()
         {
             uut = new TCDataConnection();
+            uutWithPosition = new TCDataConnection(){ApiDirectory = "api/Position/"};
             TCDataConnection.ApiUrl = @"https://api.trafficcontrol.dk/";
 
         }
@@ -47,15 +50,24 @@ namespace DAL.Test.Unit
             Assert.That(TCDataConnection.Token, Is.Empty);
         }
 
-        [Test]
-        public void TCAPIconnection_CallWithSomethingWierd_ReturnFalse()
-        {
-
-        }
         #region TCAPIConnection with Case
+
         #endregion
         #region TCAPIConnection with Postion
-
+        [Test]
+        public void TCAPIconnection_GetPositionWithoutToken_ReturnBadStatusCode()
+        {
+            TCDataConnection.Token = ""; 
+            var mytest = uutWithPosition.TCAPIconnection(Method.GET);
+            Assert.That(mytest.StatusCode, Is.Not.EqualTo(HttpStatusCode.OK));
+        }
+        [Test]
+        public void TCAPIconnection_GetPositionValidToken_ReturnGoodStatusCode()
+        {
+            TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            var mytest = uutWithPosition.TCAPIconnection(Method.GET);
+            Assert.That(mytest.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
         #endregion
         #region TCAPIConnection with User
         #endregion

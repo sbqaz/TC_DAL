@@ -1,11 +1,13 @@
 using System;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace TrafficControl.DAL.RestSharp.Types
 {
     public class Case
     {
         public long Id { get; set; }
+        [JsonProperty("UbstallationId")]
         public Installation Installation { get; set; }
         public string Worker { get; set; }
         public CaseStatus Status { get; set; }
