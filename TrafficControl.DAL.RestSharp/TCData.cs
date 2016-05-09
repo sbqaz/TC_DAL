@@ -10,8 +10,7 @@ namespace TrafficControl.DAL.RestSharp
         where T : class
     {
 
-        public TCDataConnection LIB { get; set; }
-
+        public ITCDataConnection LIB { get; set; }
 
         //README if we want error checking, we can override this func
         public virtual bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,

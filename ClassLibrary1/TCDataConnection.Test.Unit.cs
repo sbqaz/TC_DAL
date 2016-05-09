@@ -25,12 +25,14 @@ namespace DAL.Test.Unit
         [Test]
         public void Login_WithValidLogin_ReturnsTrue()
         {
-
+            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk","Phantom-161");
+            Assert.That(mytest,Is.EqualTo(true));
         }
         [Test]
         public void Login_WithValidLogin_TokenNotEmpty()
         {
-
+            TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            Assert.That(TCDataConnection.Token, Is.Not.Empty);
         }
         [Test]
         public void Login_WithInValidLogin_ReturnsFalse()
@@ -41,13 +43,23 @@ namespace DAL.Test.Unit
         [Test]
         public void Login_WithInValidLogin_TokenEmpty()
         {
-
+            TCDataConnection.LogIn("test", "tester");
+            Assert.That(TCDataConnection.Token, Is.Empty);
         }
 
         [Test]
-        public void TCAPIconnection_Returns_okayish()
+        public void TCAPIconnection_CallWithSomethingWierd_ReturnFalse()
         {
-            
+
         }
+        #region TCAPIConnection with Case
+        #endregion
+        #region TCAPIConnection with Postion
+
+        #endregion
+        #region TCAPIConnection with User
+        #endregion
+        #region TCAPIConnection with Installation
+        #endregion
     }
 }

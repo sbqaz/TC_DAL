@@ -18,6 +18,7 @@ namespace TrafficControl.DAL.RestSharp
         public string ApiDirectory { get; set; }
         public TCDataConnection()
         {
+            ApiDirectory = "";
             Token = "";
         }
         public IRestResponse TCAPIconnection( Method b, long c = 0, object d = null)

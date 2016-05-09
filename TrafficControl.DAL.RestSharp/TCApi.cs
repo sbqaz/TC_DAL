@@ -62,14 +62,13 @@ namespace TrafficControl.DAL.RestSharp
             return CaseDataHandler.ClaimCase(id);
         }
 
-        public bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription)
+        public bool CreateCase(int installtionID, ObserverSelection observer, string errorDescription)
         {
-            var myCase = new Case()
+            var myCase = new PostCaseDTO()
             {
-                InstallationsID = installtionId,
+                Installation = installtionID,
                 Observer = observer,
-                ErrorDescription = errorDescription,
-                Status = 0 
+                ErrorDescription = errorDescription
             };
             return CaseDataHandler.Post(myCase);
         }

@@ -18,9 +18,9 @@ namespace TrafficControl.DAL.RestSharp
         {
             LIB = new TCDataConnection() {ApiDirectory = "api/Case/"};
         }
-        public override bool Post(Case obj)
+        public bool Post(PostCaseDTO obj)
         {
-            if (obj.InstallationsID == 0) return false;
+            if (obj.Installation == 0) return false;
             var response = LIB.TCAPIconnection(Method.PUT,0,obj);
             return response.StatusCode == HttpStatusCode.OK;
         }

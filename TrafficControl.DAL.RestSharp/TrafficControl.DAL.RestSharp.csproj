@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITCDataConnection.cs" />
+    <Compile Include="Types\PostCaseDTO.cs" />
     <Compile Include="Types\CaseStatus.cs" />
     <Compile Include="Types\ChangePasswordDTO.cs" />
     <Compile Include="Types\AccountDTO.cs" />
