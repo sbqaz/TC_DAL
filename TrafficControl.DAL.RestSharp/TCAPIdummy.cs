@@ -79,25 +79,21 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Case()
             {
                 Id = 1,
+                Installation = new Installation()
+                {
+                    Id = 1,
+                    Name = "Navn Et",
+                    Position = new Position()
+                    {
+                        Id = 1,
+                        Latitude = 56.460178,
+                        Longtitude = 10.043286
+                    },
+                    Status = 0
+                },
                 Status = CaseStatus.Created,
                 Worker = "Test1",
                 Time = new DateTime(2016, 5, 1, 1, 42, 16),
-            });
-
-            retval.Add(new Case()
-            {
-                Id = 2,
-                Status = CaseStatus.Started,
-                Worker = "Test2",
-                Time = new DateTime(2016, 5, 5, 15, 42, 2),
-            });
-
-            retval.Add(new Case()
-            {
-                Id = 3,
-                Status = CaseStatus.Done,
-                Worker = "Test3",
-                Time = new DateTime(2015, 12, 24, 18, 42, 10),
             });
 
             return retval;
@@ -143,10 +139,22 @@ namespace TrafficControl.DAL.RestSharp
         public ICollection<Case> GetCases()
         {
             var retval = new List<Case>();
-
+            
             retval.Add(new Case()
             {
                 Id = 11,
+                Installation = new Installation()
+                {
+                    Id = 1,
+                    Name = "Navn Et",
+                    Position = new Position()
+                    {
+                        Id = 1,
+                        Latitude = 56.460178,
+                        Longtitude = 10.043286
+                    },
+                    Status = 0
+                },
                 Status = CaseStatus.Created,
                 Worker = "Test11",
                 Time = new DateTime(2016, 5, 9, 9, 42, 52),
@@ -155,6 +163,18 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Case()
             {
                 Id = 22,
+                Installation = new Installation()
+                {
+                    Id = 2,
+                    Name = "Navn To",
+                    Position = new Position()
+                    {
+                        Id = 2,
+                        Latitude = 56.459859,
+                        Longtitude = 10.030006
+                    },
+                    Status = 1
+                },
                 Status = CaseStatus.Started,
                 Worker = "Test22",
                 Time = new DateTime(2016, 1, 22, 23, 58, 52),
@@ -163,6 +183,18 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Case()
             {
                 Id = 33,
+                Installation = new Installation()
+                {
+                    Id = 3,
+                    Name = "Navn Tre",
+                    Position = new Position()
+                    {
+                        Id = 3,
+                        Latitude = 56.463867,
+                        Longtitude = 10.032424
+                    },
+                    Status = 2
+                },
                 Status = CaseStatus.Done,
                 Worker = "Test33",
                 Time = new DateTime(2016, 5, 8, 15, 2, 22),

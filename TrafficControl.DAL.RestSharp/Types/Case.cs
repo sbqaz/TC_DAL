@@ -7,7 +7,7 @@ namespace TrafficControl.DAL.RestSharp.Types
     public class Case
     {
         public long Id { get; set; }
-        [JsonProperty("UbstallationId")]
+        [JsonProperty("InstallationId")]
         public Installation Installation { get; set; }
         public string Worker { get; set; }
         public CaseStatus Status { get; set; }
