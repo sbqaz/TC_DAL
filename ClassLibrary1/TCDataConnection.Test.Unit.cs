@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using RestSharp;
 using TrafficControl.DAL.RestSharp;
@@ -24,7 +21,7 @@ namespace DAL.Test.Unit
             TCDataConnection.ApiUrl = @"https://api.trafficcontrol.dk/";
 
         }
-
+        #region Login
         [Test]
         public void Login_WithValidLogin_ReturnsTrue()
         {
@@ -49,9 +46,9 @@ namespace DAL.Test.Unit
             TCDataConnection.LogIn("test", "tester");
             Assert.That(TCDataConnection.Token, Is.Empty);
         }
-
+#endregion
         #region TCAPIConnection with Case
-
+        
         #endregion
         #region TCAPIConnection with Postion
         [Test]

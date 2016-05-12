@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeResponseHandler.cs" />
     <Compile Include="TCApi.Test.Unit.cs" />
     <Compile Include="TCDataInstallation.Test.Unit.cs" />
     <Compile Include="TCDataAccount.Test.Unit.cs" />
