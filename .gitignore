@@ -342,3 +342,4 @@ sympy-plots-for-*.tex/
 *.bak
 *.sav
 
+TrafficControl.DAL.RestSharp/TrafficControl.DAL.RestSharp.csproj

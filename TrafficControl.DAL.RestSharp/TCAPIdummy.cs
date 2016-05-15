@@ -82,7 +82,7 @@ namespace TrafficControl.DAL.RestSharp
                 Installation = new Installation()
                 {
                     Id = 1,
-                    Name = "Navn Et",
+                    Name = "Randersvej - Aarhusvej",
                     Position = new Position()
                     {
                         Id = 1,
@@ -92,7 +92,7 @@ namespace TrafficControl.DAL.RestSharp
                     Status = 0
                 },
                 Status = CaseStatus.Created,
-                Worker = "Test1",
+                Worker = "Jens Hansen",
                 Time = new DateTime(2016, 5, 1, 1, 42, 16),
             });
 
@@ -106,12 +106,34 @@ namespace TrafficControl.DAL.RestSharp
 
         public Case GetCase(int caseId)
         {
-            return null;
+            return new Case()
+            {
+                Id = 1,
+                Installation = new Installation()
+                {
+                    Id = 1,
+                    Name = "Aarhusvej - Randersvej",
+                    Position = new Position()
+                    {
+                        Id = 1,
+                        Latitude = 56.460178,
+                        Longtitude = 10.043286
+                    },
+                    Status = 1
+                },
+                Worker = "TestPerson Hansen",
+                Status = CaseStatus.Created,
+                Observer = ObserverSelection.Police,
+                ErrorDescription = "Der er en fejl et sted...",
+                Time = new DateTime(2016, 5, 15, 17, 41, 55),
+                MadeRepair = "Intet lavet",
+                UserComment = "Ingen kommentarer endnu"
+            };
         }
 
         public bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
@@ -146,7 +168,7 @@ namespace TrafficControl.DAL.RestSharp
                 Installation = new Installation()
                 {
                     Id = 1,
-                    Name = "Navn Et",
+                    Name = "Randersvej - Aarhusvej",
                     Position = new Position()
                     {
                         Id = 1,
@@ -156,7 +178,7 @@ namespace TrafficControl.DAL.RestSharp
                     Status = 0
                 },
                 Status = CaseStatus.Created,
-                Worker = "Test11",
+                Worker = "Jens Hansen",
                 Time = new DateTime(2016, 5, 9, 9, 42, 52),
             });
 
@@ -166,7 +188,7 @@ namespace TrafficControl.DAL.RestSharp
                 Installation = new Installation()
                 {
                     Id = 2,
-                    Name = "Navn To",
+                    Name = "Nørrebro - Vestergade",
                     Position = new Position()
                     {
                         Id = 2,
@@ -176,7 +198,7 @@ namespace TrafficControl.DAL.RestSharp
                     Status = 1
                 },
                 Status = CaseStatus.Started,
-                Worker = "Test22",
+                Worker = "Per Pedersen",
                 Time = new DateTime(2016, 1, 22, 23, 58, 52),
             });
 
@@ -186,7 +208,7 @@ namespace TrafficControl.DAL.RestSharp
                 Installation = new Installation()
                 {
                     Id = 3,
-                    Name = "Navn Tre",
+                    Name = "Finlandsgade - Randersvej",
                     Position = new Position()
                     {
                         Id = 3,
@@ -196,7 +218,7 @@ namespace TrafficControl.DAL.RestSharp
                     Status = 2
                 },
                 Status = CaseStatus.Done,
-                Worker = "Test33",
+                Worker = "Hans Jensen",
                 Time = new DateTime(2016, 5, 8, 15, 2, 22),
             });
 
@@ -209,7 +231,7 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Installation()
             {
                 Id = 1,
-                Name = "Navn Et",
+                Name = "Randersvej - Aarhusvej",
                 Position = new Position()
                 {
                     Id = 1, 
@@ -222,7 +244,7 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Installation()
             {
                 Id = 2,
-                Name = "Navn To",
+                Name = "Nørrebro - Vestergade",
                 Position = new Position()
                 {
                     Id = 2,
@@ -235,7 +257,7 @@ namespace TrafficControl.DAL.RestSharp
             retval.Add(new Installation()
             {
                 Id = 3,
-                Name = "Navn Tre",
+                Name = "Finlandsgade - Randersvej",
                 Position = new Position()
                 {
                     Id = 3,
