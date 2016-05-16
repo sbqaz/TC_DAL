@@ -42,7 +42,7 @@ namespace TrafficControl.DAL.RestSharp
         //create one more abstraction layer for rest, seperate it so code can be tested effectively 
         public IRestResponse TCAPIconnection( Method b, long c = 0, object d = null)
         {
-            var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
+            var client = c == 0 ? MyConnectionService.GetClient(ApiUrl + ApiDirectory) : MyConnectionService.GetClient(ApiUrl + ApiDirectory + c);
             var request = new RestRequest(b);
             request.AddHeader("Authorization", Token);
             if (d != null)

@@ -21,7 +21,7 @@ namespace TrafficControl.DAL.RestSharp
  
         public virtual bool Post(T obj)
         {
-            var response = LIB.TCAPIconnection(Method.PUT, 0, obj);
+            var response = LIB.TCAPIconnection(Method.POST, 0, obj);
             return response.StatusCode == HttpStatusCode.OK;
         }
         public abstract bool Update(T user);

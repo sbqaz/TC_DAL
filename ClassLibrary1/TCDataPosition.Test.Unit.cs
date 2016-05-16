@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net;
 using NSubstitute;
 using NUnit.Framework;
+using RestSharp;
 using TrafficControl.DAL.RestSharp;
 using TrafficControl.DAL.RestSharp.Types;
 
@@ -15,7 +17,7 @@ namespace DAL.Test.Unit
         [SetUp]
         public void Init()
         {
-            uut = new TCDataPosition();
+            uut = new TCDataPosition() {LIB = Substitute.For<ITCDataConnection>()};
             TestObj = Substitute.For<Position>();
             FakeConnection = Substitute.For<TCDataConnection>();
         }
@@ -23,7 +25,13 @@ namespace DAL.Test.Unit
         [Test]
         public void Get_CallingPost_APIClientCallsTheCorrectFunc()
         {
-            
+            uut.LIB.TCAPIconnection(Method.GET).ReceivedWithAnyArgs();
         }
+        [Test]
+        public void Get_CallingPost_APIClientReturns()
+        {
+            uut.LIB.TCAPIconnection(Method.GET).Content.Returns("");
+        }
+
     }
 }
