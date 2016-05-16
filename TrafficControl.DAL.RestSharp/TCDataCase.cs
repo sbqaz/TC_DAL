@@ -21,7 +21,7 @@ namespace TrafficControl.DAL.RestSharp
         public bool Post(PostCaseDTO obj)
         {
             if (obj.Installation == 0) return false;
-            var response = LIB.TCAPIconnection(Method.PUT,0,obj);
+            var response = LIB.TCAPIconnection(Method.POST,0,obj);
             return response.StatusCode == HttpStatusCode.OK;
         }
         public override bool Update(Case user)
