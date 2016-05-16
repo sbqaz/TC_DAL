@@ -22,7 +22,7 @@ namespace TrafficControl.DAL.RestSharp
         {
             if (obj.Installation == 0) return false;
             var response = LIB.TCAPIconnection(Method.POST,0,obj);
-            return response.StatusCode == HttpStatusCode.OK;
+            return response.StatusCode == HttpStatusCode.Created;
         }
         public override bool Update(Case user)
         {
