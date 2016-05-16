@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
@@ -23,15 +24,42 @@ namespace DAL.Test.Unit
         }
 
         [Test]
-        public void Get_CallingPost_APIClientCallsTheCorrectFunc()
+        public void Get_CallingGet_APIClientCallsTheCorrectFunc()
         {
-            uut.LIB.TCAPIconnection(Method.GET).ReceivedWithAnyArgs();
-            uut.Post(new Position() {Id = 0, Latitude = 0, Longtitude = 0});
+            uut.LIB.TCAPIconnection(Method.GET).ReceivedCalls();
+            uut.Get();
         }
         [Test]
-        public void Get_CallingPost_APIClientReturns()
+        public void Get_APIReturnsNothing_GetEmptyPosition()
         {
-            uut.LIB.TCAPIconnection(Method.GET).Content.Returns("");
+            uut.LIB.TCAPIconnection(Method.GET).Content.Returns("[]");
+            var jsonResult = JsonConvert.SerializeObject(uut.Get());
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position[0]);
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
+        }
+        [Test]
+        public void GetWithID_APIReturnsNothing_GetEmptyPosition()
+        {
+            uut.LIB.TCAPIconnection(Method.GET,2).Content.Returns("");
+            var jsonResult = JsonConvert.SerializeObject(uut.Get(2));
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position());
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
+        }
+        [Test]
+        public void Get_APIReturnsNothing_GetExpectedListOfPositions()
+        {
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position[2] { new Position() { Id = 1, Latitude = 56.43372, Longtitude = 10.05303 }, new Position() { Id = 2, Latitude = 56.46389, Longtitude = 9.988638 } });
+            uut.LIB.TCAPIconnection(Method.GET).Content.Returns(jsonExpectedResult);
+            var jsonResult = JsonConvert.SerializeObject(uut.Get());
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
+        }
+        [Test]
+        public void GetWithID_APIReturnsNothing_GetPosition()
+        {
+            uut.LIB.TCAPIconnection(Method.GET, 2).Content.Returns("");
+            var jsonResult = JsonConvert.SerializeObject(uut.Get(2));
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position());
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
         }
 
     }

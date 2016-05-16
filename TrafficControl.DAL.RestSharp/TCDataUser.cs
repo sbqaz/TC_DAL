@@ -48,13 +48,14 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
         }
         //GET api/Account/UserInfo
-        public override User Get(long id = 0L)
+        public override User Get(long id)
         {
             var response = LIB.TCAPIconnection("UserInfo/", Method.GET, id);
             if (response.StatusCode != HttpStatusCode.OK) return null;
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
+
         public override bool Update(User user)
         {
             var tmp = new UpdateUserInfoDTO()

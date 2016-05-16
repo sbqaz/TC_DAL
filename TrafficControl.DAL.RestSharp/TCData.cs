@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
@@ -26,11 +27,19 @@ namespace TrafficControl.DAL.RestSharp
         }
         public abstract bool Update(T user);
 
-        public virtual T Get(long id = 0L)
+        public virtual T Get(long id)
         {
+            if (id == 0) return new T();
             var response = LIB.TCAPIconnection(Method.GET, id);
             if (response.StatusCode != HttpStatusCode.OK) return new T();
             var retval = JsonConvert.DeserializeObject<T>(response.Content);
+            return retval;
+        }
+        public virtual ICollection<T> Get()
+        {
+            var response = LIB.TCAPIconnection(Method.GET);
+            if (response.StatusCode != HttpStatusCode.OK) return new T[0];
+            var retval = JsonConvert.DeserializeObject<ICollection<T>>(response.Content);
             return retval;
         }
         /*

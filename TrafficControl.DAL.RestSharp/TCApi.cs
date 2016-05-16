@@ -140,7 +140,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public User GetUser()
         {
-            return UserDataHandler.Get();
+            return UserDataHandler.Get(0);
         }
 
         
