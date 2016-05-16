@@ -12,8 +12,8 @@ namespace TrafficControl.DAL.RestSharp
     public interface ITCData<T>
     {
         ITCDataConnection LIB { get; set; }
-        T Get(int id=0);
-        bool Delete(int id);
+        T Get(long id=0);
+        bool Delete(long id);
         ICollection<T> GetAll();
         bool Update(T user);
         bool Post(T obj);

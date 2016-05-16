@@ -1,32 +1,76 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO.Ports;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
+using NSubstitute;
 using NUnit.Framework;
 using RestSharp;
 using TrafficControl.DAL.RestSharp;
 
 namespace DAL.Test.Unit
 {
-    
+
+    public class tokenTestDTO
+    {
+        public string access_token { get; set; }
+        public string token_type { get; set; }
+        public int expires_in { get; set; }
+        public string userName { get; set; }
+        public string issued { get; set; }
+        public string expires { get; set; }
+    }
+
     [TestFixture]
     public class TCDataConnectionTests
     {
+        private void testerApiCalls()
+        {
+            var fakeResponseHandler = new FakeResponseHandler();
+            fakeResponseHandler.AddFakeResponse(
+                new Uri("http://test.tc/token"),
+                new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(JsonConvert.SerializeObject(
+                        new tokenTestDTO()
+                        {
+                            access_token = "test",
+                            token_type = "bearer",
+                            userName = "test"
+                        }
+                    ))
+                }
+            );
+
+           
+        }
+        private TCDataConnection uutWithFakeConnection { get; set; }
         private TCDataConnection uut { get; set; }
         private TCDataConnection uutWithPosition { get; set; }
         [SetUp]
         public void Init()
         {
             uut = new TCDataConnection();
-            uutWithPosition = new TCDataConnection(){ApiDirectory = "api/Position/"};
-            TCDataConnection.ApiUrl = @"https://api.trafficcontrol.dk/";
+            uutWithPosition = new TCDataConnection() { ApiDirectory = "api/Position/" };
+            TCDataConnection.ApiUrl = @"https://test.trafficcontrol.dk/";
+            var fakeClient = Substitute.For<IRestClient>();
+            var fakerequest = Substitute.For<IRestRequest>();
 
+        }
+
+        [Test]
+        public void TCDataConnection_WithValidLogin_ReturnsTrue()
+        {
+            uut.TCAPIconnection(Method.GET);
         }
         #region Login
         [Test]
         public void Login_WithValidLogin_ReturnsTrue()
         {
-            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk","Phantom-161");
-            Assert.That(mytest,Is.EqualTo(true));
+            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            Assert.That(mytest, Is.EqualTo(true));
         }
         [Test]
         public void Login_WithValidLogin_TokenNotEmpty()
@@ -38,7 +82,7 @@ namespace DAL.Test.Unit
         public void Login_WithInValidLogin_ReturnsFalse()
         {
             var mytest = TCDataConnection.LogIn("test", "tester");
-            Assert.That(mytest,Is.EqualTo(false));
+            Assert.That(mytest, Is.EqualTo(false));
         }
         [Test]
         public void Login_WithInValidLogin_TokenEmpty()
@@ -46,15 +90,15 @@ namespace DAL.Test.Unit
             TCDataConnection.LogIn("test", "tester");
             Assert.That(TCDataConnection.Token, Is.Empty);
         }
-#endregion
+        #endregion
         #region TCAPIConnection with Case
-        
+
         #endregion
         #region TCAPIConnection with Postion
         [Test]
         public void TCAPIconnection_GetPositionWithoutToken_ReturnBadStatusCode()
         {
-            TCDataConnection.Token = ""; 
+            TCDataConnection.Token = "";
             var mytest = uutWithPosition.TCAPIconnection(Method.GET);
             Assert.That(mytest.StatusCode, Is.Not.EqualTo(HttpStatusCode.OK));
         }

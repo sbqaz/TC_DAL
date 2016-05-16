@@ -26,7 +26,7 @@ namespace TrafficControl.DAL.RestSharp
         }
         public abstract bool Update(T user);
 
-        public virtual T Get(int id = 0)
+        public virtual T Get(long id = 0L)
         {
             var response = LIB.TCAPIconnection(Method.GET, id);
             if (response.StatusCode != HttpStatusCode.OK) return null;
@@ -34,7 +34,7 @@ namespace TrafficControl.DAL.RestSharp
             return retval;
         }
 
-        public virtual bool Delete(int id)
+        public virtual bool Delete(long id)
         {
             if(id == 0) return false;
             var response = LIB.TCAPIconnection(Method.DELETE, id);

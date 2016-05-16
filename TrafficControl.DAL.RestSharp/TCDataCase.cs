@@ -44,7 +44,7 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
-        public override Case Get(int id)
+        public override Case Get(long id = 0L)
         {
             if (id != 0)
             {

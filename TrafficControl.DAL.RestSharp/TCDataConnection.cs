@@ -11,16 +11,35 @@ using RestSharp;
 
 namespace TrafficControl.DAL.RestSharp
 {
+    public interface IConnectionService
+    {
+        IRestClient GetClient(string connectionParameter);
+    }
+
+    public class ConnectionServer : IConnectionService
+    {
+        public IRestClient GetClient(string connectionParameter)
+        {
+            return new RestClient(connectionParameter);
+        }
+    }
+
     public class TCDataConnection : ITCDataConnection
     {
+
         public static string ApiUrl { get; set; }
         public static string Token { get; set; }
         public string ApiDirectory { get; set; }
+        public IConnectionService MyConnectionService { get; set; }
         public TCDataConnection()
         {
+            MyConnectionService = new ConnectionServer();
             ApiDirectory = "";
             Token = "";
         }
+
+
+        //create one more abstraction layer for rest, seperate it so code can be tested effectively 
         public IRestResponse TCAPIconnection( Method b, long c = 0, object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
@@ -43,6 +62,7 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
+
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c)
         {
             var client = new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory);
