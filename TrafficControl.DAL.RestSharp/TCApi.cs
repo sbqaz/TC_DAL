@@ -48,7 +48,7 @@ namespace TrafficControl.DAL.RestSharp
             return CaseDataHandler.MyCases;
         }
 
-        public Case GetCase(int id)
+        public Case GetCase(long id)
         {
             return CaseDataHandler.Get(id);
         }
@@ -57,12 +57,12 @@ namespace TrafficControl.DAL.RestSharp
         {
             return CaseDataHandler.GetAll(); 
         }
-        public bool ClaimCases(int id)
+        public bool ClaimCases(long id)
         {
             return CaseDataHandler.ClaimCase(id);
         }
 
-        public bool CreateCase(int installtionID, ObserverSelection observer, string errorDescription)
+        public bool CreateCase(long installtionID, ObserverSelection observer, string errorDescription)
         {
             var myCase = new PostCaseDTO()
             {
@@ -85,7 +85,7 @@ namespace TrafficControl.DAL.RestSharp
             return InstallationDataHandler.GetAll();
         }
 
-        public Installation GetInstallation(int id)
+        public Installation GetInstallation(long id)
         {
             return InstallationDataHandler.Get(id);
         }
@@ -112,7 +112,7 @@ namespace TrafficControl.DAL.RestSharp
             return PositionDataHandler.GetAll();
         }
 
-        public Position GetPosition(int id)
+        public Position GetPosition(long id)
         {
             return PositionDataHandler.Get(id);
         }

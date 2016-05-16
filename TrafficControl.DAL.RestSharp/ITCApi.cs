@@ -17,19 +17,19 @@ namespace TrafficControl.DAL.RestSharp
         #endregion
     #region Cases
         ICollection<Case> GetMyCases();
-        Case GetCase(int id);
-        bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription);
+        Case GetCase(long id);
+        bool CreateCase(long installtionId, ObserverSelection observer, string errorDescription);
         bool UpdateCase(Case myCase);
         ICollection<Case> GetCases();
         #endregion
     #region Installations
         ICollection<Installation> GetInstallations();
-        Installation GetInstallation(int id);
+        Installation GetInstallation(long id);
         bool UpdateInstalltion(Installation obj);
         #endregion
     #region Position
         ICollection<Position> GetPositions();
-        Position GetPosition(int id);
+        Position GetPosition(long id);
         bool UpdatePosition(Position position);
         #endregion
     }

@@ -104,7 +104,7 @@ namespace TrafficControl.DAL.RestSharp
             throw new NotImplementedException();
         }
 
-        public Case GetCase(int caseId)
+        public Case GetCase(long caseId)
         {
             return new Case()
             {
@@ -131,12 +131,12 @@ namespace TrafficControl.DAL.RestSharp
             };
         }
 
-        public bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription)
+        public bool CreateCase(long installtionId, ObserverSelection observer, string errorDescription)
         {
             return true;
         }
 
-        public bool CreateCase(int Id, int InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
+        public bool CreateCase(long Id, long InstalltionId, string worker, DateTime startTime, int observer, string errorDescription,
             string repair)
         {
             return true;
@@ -270,7 +270,7 @@ namespace TrafficControl.DAL.RestSharp
             return retval;
         }
 
-        public Installation GetInstallation(int id)
+        public Installation GetInstallation(long id)
         {
             return null;
         }
@@ -300,7 +300,7 @@ namespace TrafficControl.DAL.RestSharp
             return null;
         }
 
-        public Position GetPosition(int id)
+        public Position GetPosition(long id)
         {
             return null;
         }

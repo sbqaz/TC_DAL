@@ -31,7 +31,7 @@ namespace TrafficControl.DAL.RestSharp
             return response.StatusCode == HttpStatusCode.OK;
         }
 
-        public bool ClaimCase(int id)
+        public bool ClaimCase(long id)
         {
             if (id == 0) return false;
             var response = LIB.TCAPIconnection("ClaimCase/",Method.PUT, id);
