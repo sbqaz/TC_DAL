@@ -40,7 +40,7 @@ namespace TrafficControl.DAL.RestSharp
         public ICollection<Case> GetMyCases()
         {
             var response = LIB.TCAPIconnection("MyCases/",Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
@@ -55,7 +55,7 @@ namespace TrafficControl.DAL.RestSharp
         public ICollection<Case> Get()
         {
             var response = LIB.TCAPIconnection(Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
 
@@ -64,7 +64,7 @@ namespace TrafficControl.DAL.RestSharp
         public override ICollection<Case> GetAll()
         {
             var response = LIB.TCAPIconnection(Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }

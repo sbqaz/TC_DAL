@@ -7,7 +7,7 @@ namespace TrafficControl.DAL.RestSharp
 {
     // ReSharper disable once InconsistentNaming
     public abstract class TCData<T> : ITCData<T>
-        where T : class
+        where T : class, new()
     {
 
         public ITCDataConnection LIB { get; set; }
@@ -29,23 +29,24 @@ namespace TrafficControl.DAL.RestSharp
         public virtual T Get(long id = 0L)
         {
             var response = LIB.TCAPIconnection(Method.GET, id);
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return new T();
             var retval = JsonConvert.DeserializeObject<T>(response.Content);
             return retval;
         }
-
+        /*
         public virtual bool Delete(long id)
         {
             if(id == 0) return false;
             var response = LIB.TCAPIconnection(Method.DELETE, id);
             return response.StatusCode == HttpStatusCode.OK;
         }
+        */
 
 
         public virtual ICollection<T> GetAll() 
         {
             var response = LIB.TCAPIconnection(Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return null;
+            if (response.StatusCode != HttpStatusCode.OK) return new T[0];
             var retval = JsonConvert.DeserializeObject<ICollection<T>>(response.Content);
             return retval;
         }

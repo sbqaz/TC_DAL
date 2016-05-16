@@ -26,6 +26,7 @@ namespace DAL.Test.Unit
         public void Get_CallingPost_APIClientCallsTheCorrectFunc()
         {
             uut.LIB.TCAPIconnection(Method.GET).ReceivedWithAnyArgs();
+            uut.Post(new Position() {Id = 0, Latitude = 0, Longtitude = 0});
         }
         [Test]
         public void Get_CallingPost_APIClientReturns()

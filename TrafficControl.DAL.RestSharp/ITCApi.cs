@@ -14,26 +14,22 @@ namespace TrafficControl.DAL.RestSharp
         User GetUser();
         bool UpdateUser(User usr);
         bool UpdateUser(string email, string password, string name, bool smsNotification, bool emailnotifikation);
-        bool DeleteUser(int id);
         #endregion
     #region Cases
         ICollection<Case> GetMyCases();
         Case GetCase(int id);
         bool CreateCase(int installtionId, ObserverSelection observer, string errorDescription);
-        bool DeleteCase(int id);
         bool UpdateCase(Case myCase);
         ICollection<Case> GetCases();
         #endregion
-        #region Installations
+    #region Installations
         ICollection<Installation> GetInstallations();
         Installation GetInstallation(int id);
-        bool DeleteInstallation(int id);
         bool UpdateInstalltion(Installation obj);
         #endregion
     #region Position
         ICollection<Position> GetPositions();
         Position GetPosition(int id);
-        bool DeletePosition(int id);
         bool UpdatePosition(Position position);
         #endregion
     }

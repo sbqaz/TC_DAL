@@ -73,10 +73,7 @@ namespace TrafficControl.DAL.RestSharp
             return CaseDataHandler.Post(myCase);
         }
 
-        public bool DeleteCase(int id)
-        {
-            return CaseDataHandler.Delete(id);
-        }
+
         public bool UpdateCase(Case myCase)
         {
             return CaseDataHandler.Update(myCase);
@@ -91,11 +88,6 @@ namespace TrafficControl.DAL.RestSharp
         public Installation GetInstallation(int id)
         {
             return InstallationDataHandler.Get(id);
-        }
-
-        public bool DeleteInstallation(int id)
-        {
-            return InstallationDataHandler.Delete(id);
         }
 
 
@@ -125,10 +117,7 @@ namespace TrafficControl.DAL.RestSharp
             return PositionDataHandler.Get(id);
         }
 
-        public bool DeletePosition(int id)
-        {
-            return PositionDataHandler.Delete(id);
-        }
+
 
         public bool UpdatePosition(Position position)
         {
@@ -170,10 +159,7 @@ namespace TrafficControl.DAL.RestSharp
             return UserDataHandler.Update(usr);
         }
 
-        public bool DeleteUser(int id = 0)
-        {
-            return UserDataHandler.Delete(id);
-        }
+
 
         #endregion
     }

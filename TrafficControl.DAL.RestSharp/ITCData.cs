@@ -13,7 +13,6 @@ namespace TrafficControl.DAL.RestSharp
     {
         ITCDataConnection LIB { get; set; }
         T Get(long id=0);
-        bool Delete(long id);
         ICollection<T> GetAll();
         bool Update(T user);
         bool Post(T obj);
