@@ -18,6 +18,7 @@ namespace TrafficControl.DAL.RestSharp
     #region Cases
         ICollection<Case> GetMyCases();
         Case GetCase(long id);
+        bool ClaimCase(long id);
         bool CreateCase(long installtionId, ObserverSelection observer, string errorDescription);
         bool UpdateCase(Case myCase);
         ICollection<Case> GetCases();

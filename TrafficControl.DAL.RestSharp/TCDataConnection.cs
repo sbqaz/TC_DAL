@@ -44,11 +44,14 @@ namespace TrafficControl.DAL.RestSharp
         {
             var client = c == 0 ? MyConnectionService.GetClient(ApiUrl + ApiDirectory) : MyConnectionService.GetClient(ApiUrl + ApiDirectory + c);
             var request = new RestRequest(b);
+            request.RequestFormat = DataFormat.Json;
             request.AddHeader("Authorization", Token);
             if (d != null)
             {
-                request.AddJsonBody(d);
+                //request.AddJsonBody(d);
+                request.AddParameter("application/json", JsonConvert.SerializeObject(d), ParameterType.RequestBody);
             }
+            
             var response = client.Execute(request);
             return response;
         }

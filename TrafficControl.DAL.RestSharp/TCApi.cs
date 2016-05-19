@@ -57,7 +57,7 @@ namespace TrafficControl.DAL.RestSharp
         {
             return CaseDataHandler.GetAll(); 
         }
-        public bool ClaimCases(long id)
+        public bool ClaimCase(long id)
         {
             return CaseDataHandler.ClaimCase(id);
         }

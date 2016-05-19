@@ -131,6 +131,11 @@ namespace TrafficControl.DAL.RestSharp
             };
         }
 
+        public bool ClaimCase(long id)
+        {
+            return true;
+        }
+
         public bool CreateCase(long installtionId, ObserverSelection observer, string errorDescription)
         {
             return true;
@@ -150,12 +155,12 @@ namespace TrafficControl.DAL.RestSharp
 
         public bool UpdateCase(int id)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool UpdateCase(Case myCase)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public ICollection<Case> GetCases()

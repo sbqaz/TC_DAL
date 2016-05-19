@@ -28,13 +28,16 @@ namespace TrafficControl.DAL.RestSharp
         {
             if (user == null) return false;
             var response = LIB.TCAPIconnection(Method.PUT, user.Id, user);
-            return response.StatusCode == HttpStatusCode.OK;
+            return response.StatusCode == HttpStatusCode.Created;
         }
 
         public bool ClaimCase(long id)
         {
             if (id == 0) return false;
-            var response = LIB.TCAPIconnection("ClaimCase/",Method.PUT, id);
+            var client = new RestClient(string.Format(@"https://api.trafficcontrol.dk/api/Case/ClaimCase?id={0}", id));
+            var request = new RestRequest(Method.PUT);
+            request.AddHeader("Authorization", TCDataConnection.Token);
+            var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
         public ICollection<Case> GetMyCases()
