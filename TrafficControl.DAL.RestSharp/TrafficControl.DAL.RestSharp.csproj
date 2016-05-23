@@ -48,22 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITCDataConnection.cs" />
+    <Compile Include="Sources\ITCDataConnection.cs" />
     <Compile Include="Types\PostCaseDTO.cs" />
     <Compile Include="Types\CaseStatus.cs" />
     <Compile Include="Types\ChangePasswordDTO.cs" />
     <Compile Include="Types\AccountDTO.cs" />
-    <Compile Include="ITCData.cs" />
-    <Compile Include="TCDataConnection.cs" />
-    <Compile Include="ITCApi.cs" />
+    <Compile Include="Sources\ITCData.cs" />
+    <Compile Include="Sources\TCDataConnection.cs" />
+    <Compile Include="Sources\ITCApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TCApi.cs" />
-    <Compile Include="TCAPIdummy.cs" />
-    <Compile Include="TCData.cs" />
-    <Compile Include="TCDataInstallation.cs" />
-    <Compile Include="TCDataCase.cs" />
-    <Compile Include="TCDataUser.cs" />
-    <Compile Include="TCDataPosition.cs" />
+    <Compile Include="Sources\TCApi.cs" />
+    <Compile Include="Sources\TCAPIdummy.cs" />
+    <Compile Include="Sources\TCData.cs" />
+    <Compile Include="Sources\TCDataInstallation.cs" />
+    <Compile Include="Sources\TCDataCase.cs" />
+    <Compile Include="Sources\TCDataUser.cs" />
+    <Compile Include="Sources\TCDataPosition.cs" />
     <Compile Include="Types\Case.cs" />
     <Compile Include="Types\Installation.cs" />
     <Compile Include="Types\ObserverSelection.cs" />
