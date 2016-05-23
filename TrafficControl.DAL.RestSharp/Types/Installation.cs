@@ -1,5 +1,3 @@
-using System;
-
 namespace TrafficControl.DAL.RestSharp.Types
 {
     
