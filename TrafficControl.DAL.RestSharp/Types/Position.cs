@@ -6,6 +6,7 @@ namespace TrafficControl.DAL.RestSharp.Types
     {
         public long Id { get; set; }
         public double Latitude { get; set; }
+
         [JsonProperty("Longitude")]
         public double Longtitude { get; set; }
     }

@@ -9,15 +9,16 @@ namespace TrafficControl.DAL.RestSharp
     {
         public TCDataUser()
         {
-            LIB = new TCDataConnection() { ApiDirectory = "api/Account/" };
+            LIB = new TCDataConnection {ApiDirectory = "api/Account/"};
         }
 
 
         //Account/Register
 
-        public override bool Post(string email, string password, string confirmedpassword, string firstname, string lastname, int roles, string number)
+        public override bool Post(string email, string password, string confirmedpassword, string firstname,
+            string lastname, int roles, string number)
         {
-            var transferOjbectToWebApi = new AccountDTO()
+            var transferOjbectToWebApi = new AccountDTO
             {
                 ConfirmPassword = confirmedpassword,
                 Email = email,
@@ -30,18 +31,21 @@ namespace TrafficControl.DAL.RestSharp
             var response = LIB.TCAPIconnection("Register/", Method.POST, transferOjbectToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
         }
+
         //Account/ChangePassword
         public bool ChangePassword(string oPassword, string nPassword, string cPassword)
         {
-            var myRequestFormatInJsonThatNeedToBeFeedToWebApi = new ChangePasswordDTO()
+            var myRequestFormatInJsonThatNeedToBeFeedToWebApi = new ChangePasswordDTO
             {
                 OldPassword = oPassword,
                 NewPassword = nPassword,
                 ConfirmPassword = cPassword
             };
-            var response = LIB.TCAPIconnection("ChangePassword/", Method.POST, myRequestFormatInJsonThatNeedToBeFeedToWebApi);
+            var response = LIB.TCAPIconnection("ChangePassword/", Method.POST,
+                myRequestFormatInJsonThatNeedToBeFeedToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
         }
+
         //GET api/Account/UserInfo
         public User Get(string id)
         {
@@ -50,6 +54,7 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
+
         public override User Get(long id)
         {
             var response = LIB.TCAPIconnection("UserInfo/", Method.GET, id);
@@ -60,7 +65,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public override bool Update(User user)
         {
-            var tmp = new UpdateUserInfoDTO()
+            var tmp = new UpdateUserInfoDTO
             {
                 EmailNotification = user.EmailNotification,
                 FirstName = user.FirstName,
@@ -72,7 +77,6 @@ namespace TrafficControl.DAL.RestSharp
             //if (User == null) return false;
             var response = LIB.TCAPIconnection("UserInfo/", Method.PUT, tmp);
             return response.StatusCode == HttpStatusCode.OK;
-
         }
 
         public bool LogOut()
@@ -81,9 +85,5 @@ namespace TrafficControl.DAL.RestSharp
             var response = LIB.TCAPIconnection("Logout/", Method.POST);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
-
-
-
     }
 }

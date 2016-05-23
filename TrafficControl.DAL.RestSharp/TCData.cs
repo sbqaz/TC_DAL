@@ -9,21 +9,14 @@ namespace TrafficControl.DAL.RestSharp
     public abstract class TCData<T> : ITCData<T>
         where T : class, new()
     {
-
         public ITCDataConnection LIB { get; set; }
 
-        //README if we want error checking, we can override this func
-        public virtual bool Post(string email, string password, string confirmedpassword, string firstname, string lastname,
-            int roles, string number)
-        {
-            return false;
-        }
- 
         public virtual bool Post(T obj)
         {
             var response = LIB.TCAPIconnection(Method.POST, 0, obj);
             return response.StatusCode == HttpStatusCode.OK;
         }
+
         public abstract bool Update(T user);
 
         public virtual T Get(long id)
@@ -34,6 +27,7 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<T>(response.Content);
             return retval;
         }
+
         public virtual ICollection<T> Get()
         {
             var response = LIB.TCAPIconnection(Method.GET);
@@ -41,22 +35,13 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<ICollection<T>>(response.Content);
             return retval;
         }
-        /*
-        public virtual bool Delete(long id)
+
+        //README if we want error checking, we can override this func
+        public virtual bool Post(string email, string password, string confirmedpassword, string firstname,
+            string lastname,
+            int roles, string number)
         {
-            if(id == 0) return false;
-            var response = LIB.TCAPIconnection(Method.DELETE, id);
-            return response.StatusCode == HttpStatusCode.OK;
+            return false;
         }
-        */
-
-
-
-            
-
-
-
-
     }
-
 }

@@ -8,8 +8,9 @@ namespace TrafficControl.DAL.RestSharp
     {
         public TCDataInstallation()
         {
-            LIB = new TCDataConnection() {ApiDirectory = "api/Installation"};
+            LIB = new TCDataConnection {ApiDirectory = "api/Installation"};
         }
+
         public override bool Post(Installation obj)
         {
             if (obj != null) return false;

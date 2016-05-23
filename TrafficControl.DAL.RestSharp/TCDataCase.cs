@@ -9,18 +9,20 @@ namespace TrafficControl.DAL.RestSharp
 {
     public class TCDataCase : TCData<Case>
     {
-        public ICollection<Case> MyCases => GetMyCases();
-
         public TCDataCase()
         {
-            LIB = new TCDataConnection() {ApiDirectory = "api/Case/"};
+            LIB = new TCDataConnection {ApiDirectory = "api/Case/"};
         }
+
+        public ICollection<Case> MyCases => GetMyCases();
+
         public bool Post(PostCaseDTO obj)
         {
             if (obj.Installation == 0) return false;
-            var response = LIB.TCAPIconnection(Method.POST,0,obj);
+            var response = LIB.TCAPIconnection(Method.POST, 0, obj);
             return response.StatusCode == HttpStatusCode.Created;
         }
+
         public override bool Update(Case user)
         {
             if (user == null) return false;
@@ -37,13 +39,15 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response.StatusCode == HttpStatusCode.OK;
         }
+
         public ICollection<Case> GetMyCases()
         {
-            var response = LIB.TCAPIconnection("MyCases/",Method.GET);
+            var response = LIB.TCAPIconnection("MyCases/", Method.GET);
             if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
         }
+
         public override Case Get(long id = 0L)
         {
             if (id != 0)
@@ -52,15 +56,13 @@ namespace TrafficControl.DAL.RestSharp
             }
             throw new ArgumentException("id shouldn't be zero");
         }
+
         public override ICollection<Case> Get()
         {
             var response = LIB.TCAPIconnection(Method.GET);
             if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
             var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
             return retval;
-
         }
-
-
     }
 }
