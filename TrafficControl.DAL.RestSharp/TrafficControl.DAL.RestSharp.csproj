@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clientFactory.cs" />
     <Compile Include="ITCDataConnection.cs" />
     <Compile Include="Types\PostCaseDTO.cs" />
     <Compile Include="Types\CaseStatus.cs" />
