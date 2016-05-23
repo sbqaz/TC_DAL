@@ -52,7 +52,7 @@ namespace TrafficControl.DAL.RestSharp
             }
             throw new ArgumentException("id shouldn't be zero");
         }
-        public ICollection<Case> Get()
+        public override ICollection<Case> Get()
         {
             var response = LIB.TCAPIconnection(Method.GET);
             if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
@@ -61,12 +61,6 @@ namespace TrafficControl.DAL.RestSharp
 
         }
 
-        public override ICollection<Case> GetAll()
-        {
-            var response = LIB.TCAPIconnection(Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
-            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
-            return retval;
-        }
+
     }
 }

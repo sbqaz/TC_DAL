@@ -57,7 +57,6 @@
     <Compile Include="TCApi.Test.Unit.cs" />
     <Compile Include="TCDataInstallation.Test.Unit.cs" />
     <Compile Include="TCDataAccount.Test.Unit.cs" />
-    <Compile Include="TCData.Test.Unit.cs" />
     <Compile Include="TCDataConnection.Test.Unit.cs" />
     <Compile Include="TCDataPosition.Test.Unit.cs" />
     <Compile Include="TCDataUser.Test.Unit.cs" />

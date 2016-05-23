@@ -55,7 +55,7 @@ namespace TrafficControl.DAL.RestSharp
 
         public ICollection<Case> GetCases()
         {
-            return CaseDataHandler.GetAll(); 
+            return CaseDataHandler.Get(); 
         }
         public bool ClaimCase(long id)
         {
@@ -82,7 +82,7 @@ namespace TrafficControl.DAL.RestSharp
         #region Installations
         public ICollection<Installation> GetInstallations()
         {
-            return InstallationDataHandler.GetAll();
+            return InstallationDataHandler.Get();
         }
 
         public Installation GetInstallation(long id)
@@ -109,7 +109,7 @@ namespace TrafficControl.DAL.RestSharp
         }
         public ICollection<Position> GetPositions()
         {
-            return PositionDataHandler.GetAll();
+            return PositionDataHandler.Get();
         }
 
         public Position GetPosition(long id)

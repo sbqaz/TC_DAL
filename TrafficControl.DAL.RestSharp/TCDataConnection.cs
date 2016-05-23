@@ -6,38 +6,37 @@ using RestSharp;
 
 namespace TrafficControl.DAL.RestSharp
 {
-    public interface IConnectionService
-    {
-        IRestClient GetClient(string connectionParameter);
-    }
 
-    public class ConnectionServer : IConnectionService
-    {
-        public IRestClient GetClient(string connectionParameter)
-        {
-            return new RestClient(connectionParameter);
-        }
-    }
-
+    /// <summary>
+    /// An Class responsible for the connection to API</summary>
     public class TCDataConnection : ITCDataConnection
     {
-
+        /// <summary>
+        /// Store for the url</summary>
         public static string ApiUrl { get; set; }
+        /// <summary>
+        /// Store for the Token</summary>
         public static string Token { get; set; }
+        /// <summary>
+        /// Store for the subdirection example.com/(...) </summary>
         public string ApiDirectory { get; set; }
-        public IConnectionService MyConnectionService { get; set; }
+        /// <summary>
         public TCDataConnection()
         {
-            MyConnectionService = new ConnectionServer();
             ApiDirectory = "";
             Token = "";
         }
 
 
-        //create one more abstraction layer for rest, seperate it so code can be tested effectively 
+        /// <summary>
+        /// One of the functions to access WEB API
+        /// </summary>
+        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
+        /// <param name="c">optional parameter</param>
+        /// <param name="d">optional parameter if you want to send an object</param>
         public IRestResponse TCAPIconnection( Method b, long c = 0, object d = null)
         {
-            var client = c == 0 ? MyConnectionService.GetClient(ApiUrl + ApiDirectory) : MyConnectionService.GetClient(ApiUrl + ApiDirectory + c);
+            var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
             var request = new RestRequest(b);
             request.RequestFormat = DataFormat.Json;
             request.AddHeader("Authorization", Token);
@@ -50,8 +49,11 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
-        // ReSharper disable once InconsistentNaming
-        
+        /// <summary>
+        /// One of the functions to access WEB API
+        /// </summary>
+        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
+        /// <param name="c">optional parameter</param>
         public IRestResponse TCAPIconnection( Method b, string c)
         {
             var client = c == "" ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
@@ -60,7 +62,11 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
-
+        /// <summary>
+        /// One of the functions to access WEB API
+        /// </summary>
+        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
+        /// <param name="c">optional parameter</param>
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c)
         {
             var client = new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory);
