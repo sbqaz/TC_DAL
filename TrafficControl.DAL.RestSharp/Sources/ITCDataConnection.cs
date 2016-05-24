@@ -2,6 +2,9 @@
 
 namespace TrafficControl.DAL.RestSharp
 {
+    /// <summary>
+    /// Interface
+    /// </summary>
     public interface ITCDataConnection
     {
         string ApiDirectory { get; set; }

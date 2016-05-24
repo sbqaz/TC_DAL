@@ -7,7 +7,7 @@ using RestSharp;
 namespace TrafficControl.DAL.RestSharp
 {
     /// <summary>
-    /// en Connection klasse for forbindelse til API kald. 
+    /// en Connection klasse med wrapups til forbindelse til API kald, og til at få en token fra WEB API 
     /// </summary>
     public class TCDataConnection : ITCDataConnection
     {

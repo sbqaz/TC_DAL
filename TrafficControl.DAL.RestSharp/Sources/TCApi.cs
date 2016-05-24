@@ -4,22 +4,43 @@ using TrafficControl.DAL.RestSharp.Types;
 namespace TrafficControl.DAL.RestSharp
 {
     // ReSharper disable once InconsistentNaming
+    /// <summary>
+    /// klassen samler og kalder funktioner der er implementeret i de andre TCData klasser
+    /// </summary>
+    /// <remarks> alle funktioner i denne klasser kalder videre på en funktion og returnere hvad den kaldte funktion returnerer</remarks>
     public sealed class TCApi : ITCApi
     {
         #region Setup
-
+        /// <summary>
+        /// Base url til web api
+        /// </summary>
         private const string ApiUrl = @"https://api.trafficcontrol.dk/";
-        //private const string ApiUrl = @"localhost:49527/";
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        /// <summary>
+        /// til at holde en token
+        /// </summary>
         private string _token = null;
 
-        // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        private User CurUser { get; set; }
+        /// <summary>
+        /// property til at holde en objekt der håndter Position relateret API kald
+        /// </summary>
         public ITCData<Position> PositionDataHandler { get; set; }
+        /// <summary>
+        /// property til at holde en objekt der håndter Installation relateret API kald
+        /// </summary>
         public ITCData<Installation> InstallationDataHandler { get; set; }
+        /// <summary>
+        /// property til at holde en objekt der håndter User relateret API kald
+        /// </summary>
         public TCDataUser UserDataHandler { get; set; }
+        /// <summary>
+        /// property til at holde en objekt der håndter Case relateret API kald
+        /// </summary>
         public TCDataCase CaseDataHandler { get; set; }
 
+        /// <summary>
+        /// Initialisering
+        /// </summary>
         public TCApi()
         {
             PositionDataHandler = new TCDataPosition();
@@ -34,11 +55,11 @@ namespace TrafficControl.DAL.RestSharp
 
         #region Account
 
-        //Email: test@trafficcontrol.dk Password: Phantom-161
         public bool LogIn(string email, string password)
         {
             return TCDataConnection.LogIn(email, password);
         }
+
 
         public bool ChangePassword(string opassword, string nPassword, string cPassword)
         {
@@ -172,10 +193,8 @@ namespace TrafficControl.DAL.RestSharp
             return UserDataHandler.Update(usr);
         }
 
-        public bool UpdateUser(User usr = null)
+        public bool UpdateUser(User usr)
         {
-            if (usr == null)
-                usr = CurUser;
             return UserDataHandler.Update(usr);
         }
 

@@ -54,15 +54,6 @@ namespace DAL.Test.Unit
                 var jsonExpectedResult = JsonConvert.SerializeObject(new Installation());
                 Assert.AreEqual(jsonResult, jsonExpectedResult);
             }
-            //[Test]
-            //public void Get_APIReturnsNothing_GetExpectedListOfInstallations()
-            //{
-            //    var jsonExpectedResult = JsonConvert.SerializeObject(new Installation[2] { new Installation() { Id = 1, Latitude = 56.43372, Longtitude = 10.05303 }, new Installation() { Id = 2, Latitude = 56.46389, Longtitude = 9.988638 } });
-            //    uut.LIB.TCAPIconnection(Method.GET).StatusCode.Returns(HttpStatusCode.OK);
-            //    uut.LIB.TCAPIconnection(Method.GET).Content.Returns(jsonExpectedResult);
-            //    var jsonResult = JsonConvert.SerializeObject(uut.Get());
-            //    Assert.AreEqual(jsonResult, jsonExpectedResult);
-            //}
 
             [Test]
             public void GetWithID_APIReturnsNothing_GetInstallation()
