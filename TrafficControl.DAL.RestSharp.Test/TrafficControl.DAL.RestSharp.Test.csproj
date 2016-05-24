@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="FakeResponseHandler.cs" />
     <Compile Include="TCApi.Test.Unit.cs" />
+    <Compile Include="TCDataConnection.Test.Integration.cs" />
     <Compile Include="TCDataInstallation.Test.Unit.cs" />
     <Compile Include="TCDataAccount.Test.Unit.cs" />
     <Compile Include="TCDataConnection.Test.Unit.cs" />

@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficControl.DAL.RestSharp", "TrafficControl.DAL.RestSharp.csproj", "{99424C50-F132-4DE5-A9B1-919CFEA3F26B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficControl.DAL.RestSharp.Test", "..\ClassLibrary1\TrafficControl.DAL.RestSharp.Test.csproj", "{2EFFD9A8-3BD2-4BEC-A980-CA17C6E26222}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrafficControl.DAL.RestSharp.Test", "..\TrafficControl.DAL.RestSharp.Test\TrafficControl.DAL.RestSharp.Test.csproj", "{2EFFD9A8-3BD2-4BEC-A980-CA17C6E26222}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

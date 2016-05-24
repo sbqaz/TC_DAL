@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Test.Unit
+namespace ClassLibrary1
 {
-    public class TCDataCaseTests
+    class TCDataConnection
     {
     }
 }

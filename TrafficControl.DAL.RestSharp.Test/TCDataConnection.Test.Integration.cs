@@ -26,27 +26,6 @@ namespace DAL.Test.Unit
     [TestFixture]
     public class TCDataConnectionTests
     {
-        private void testerApiCalls()
-        {
-            var fakeResponseHandler = new FakeResponseHandler();
-            fakeResponseHandler.AddFakeResponse(
-                new Uri("http://test.tc/token"),
-                new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StringContent(JsonConvert.SerializeObject(
-                        new tokenTestDTO()
-                        {
-                            access_token = "test",
-                            token_type = "bearer",
-                            userName = "test"
-                        }
-                    ))
-                }
-            );
-
-
-        }
-        private TCDataConnection uutWithFakeConnection { get; set; }
         private TCDataConnection uut { get; set; }
         private TCDataConnection uutWithPosition { get; set; }
 
@@ -61,21 +40,9 @@ namespace DAL.Test.Unit
         }
 
         [Test]
-        public void TCDataConnection_AfterInit_ApiDirectoryIsNotEmpty()
+        public void TCDataConnection_AfterInitWithoutSettingApiDirectory_IsEmpty()
         {
-            Assert.That(uutWithPosition.ApiDirectory,Is.EqualTo("api/Position/"));
-        }
-        [Test]
-        public void TCDataConnection_WithValidLogin_ReturnsTrue()
-        {
-            uut.TCAPIconnection(Method.GET);
-        }
-        [Test]
-        public void Login_WithValidLogin_ReturnsTrue()
-        {
-
-            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
-            Assert.That(mytest, Is.EqualTo(true));
+            Assert.That(uut.ApiDirectory,Is.Empty);
         }
         [Test]
         public void Login_WithValidLogin_TokenNotEmpty()
@@ -95,6 +62,20 @@ namespace DAL.Test.Unit
             TCDataConnection.LogIn("test", "tester");
             Assert.That(TCDataConnection.Token, Is.Empty);
         }
+        [Test]
+        public void TCDataConnection_WithValidLogin_ReturnsTrue()
+        {
+            uut.TCAPIconnection(Method.GET);
+        }
+        [Test]
+        public void Login_WithValidLogin_ReturnsTrue()
+        {
+
+            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            Assert.That(mytest, Is.EqualTo(true));
+        }
+
+
 
 
         [Test]

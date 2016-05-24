@@ -35,8 +35,9 @@ namespace DAL.Test.Unit
             [Test]
             public void Get_CallingGet_APIClientCallsTheCorrectFunc()
             {
-                uut.LIB.TCAPIconnection(Method.GET).ReceivedCalls();
                 uut.Get();
+                uut.LIB.TCAPIconnection(Method.GET).ReceivedCalls();
+                
             }
             [Test]
             public void Get_APIReturnsNothing_GetEmptyInstallation()
