@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TrafficControl.DAL.RestSharp.TCData&lt;T&gt;">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Sources\TCData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TrafficControl.DAL.RestSharp.TCDataCase">
+    <Position X="3.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAIAAAAAAAAACAgAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Sources\TCDataCase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficControl.DAL.RestSharp.TCDataInstallation">
+    <Position X="6" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sources\TCDataInstallation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficControl.DAL.RestSharp.TCDataPosition">
+    <Position X="8.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sources\TCDataPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TrafficControl.DAL.RestSharp.TCDataUser">
+    <Position X="10.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAgABAAgAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sources\TCDataUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -12,10 +12,11 @@ namespace TrafficControl.DAL.RestSharp
     public class TCDataConnection : ITCDataConnection
     {
         /// <summary>
+        ///     A Constructor
+        /// </summary>
         public TCDataConnection()
         {
             ApiDirectory = "";
-            Token = "";
         }
 
         /// <summary>
@@ -38,13 +39,13 @@ namespace TrafficControl.DAL.RestSharp
         ///     One of the functions to access WEB API
         /// </summary>
         /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">optional parameter</param>
+        /// <param name="c">optional parameter for id in API</param>
         /// <param name="d">optional parameter if you want to send an object</param>
+        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
         public IRestResponse TCAPIconnection(Method b, long c = 0, object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
-            var request = new RestRequest(b);
-            request.RequestFormat = DataFormat.Json;
+            var request = new RestRequest(b) {RequestFormat = DataFormat.Json};
             request.AddHeader("Authorization", Token);
             if (d != null)
             {
@@ -60,7 +61,8 @@ namespace TrafficControl.DAL.RestSharp
         ///     One of the functions to access WEB API
         /// </summary>
         /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">optional parameter</param>
+        /// <param name="c">optional parameter for id sometimes it's a string.. </param>
+        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
         public IRestResponse TCAPIconnection(Method b, string c)
         {
             var client = c == "" ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
@@ -74,7 +76,9 @@ namespace TrafficControl.DAL.RestSharp
         ///     One of the functions to access WEB API
         /// </summary>
         /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">optional parameter</param>
+        /// <param name="c">the object you want to send </param>
+        /// <param name="ApiSubDirectory">if you need a more speicialize .../xxx </param>
+        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c)
         {
             var client = new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory);
@@ -84,7 +88,13 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
-
+        /// <summary>
+        ///     One of the functions to access WEB API
+        /// </summary>
+        /// <param name="ApiSubDirectory">if you need a more speicialize .../xxx </param>
+        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
+        /// <param name="c">the specific id, otherwise just leave it be.. </param>
+        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, int c = 0)
         {
             var client = c == 0
@@ -96,6 +106,13 @@ namespace TrafficControl.DAL.RestSharp
             var response = client.Execute(request);
             return response;
         }
+
+        /// <summary>
+        /// Used to retreve a access token then save it 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>returning true if succes and false if fail</returns>
 
         public static bool LogIn(string email, string password)
         {

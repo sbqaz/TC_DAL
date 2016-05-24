@@ -48,21 +48,21 @@ namespace TrafficControl.DAL.RestSharp
             return retval;
         }
 
-        public override Case Get(long id = 0L)
-        {
-            if (id != 0)
-            {
-                return base.Get(id);
-            }
-            throw new ArgumentException("id shouldn't be zero");
-        }
+        //public override Case Get(long id)
+        //{
+        //    if (id != 0)
+        //    {
+        //        return base.Get(id);
+        //    }
+        //    throw new ArgumentException("id shouldn't be zero");
+        //}
 
-        public override ICollection<Case> Get()
-        {
-            var response = LIB.TCAPIconnection(Method.GET);
-            if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
-            var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
-            return retval;
-        }
+        //public override ICollection<Case> Get()
+        //{
+        //    var response = LIB.TCAPIconnection(Method.GET);
+        //    if (response.StatusCode != HttpStatusCode.OK) return new Case[0];
+        //    var retval = JsonConvert.DeserializeObject<ICollection<Case>>(response.Content);
+        //    return retval;
+        //}
     }
 }
