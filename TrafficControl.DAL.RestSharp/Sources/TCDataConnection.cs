@@ -7,12 +7,12 @@ using RestSharp;
 namespace TrafficControl.DAL.RestSharp
 {
     /// <summary>
-    ///     An Class responsible for the connection to API
+    /// en Connection klasse for forbindelse til API kald. 
     /// </summary>
     public class TCDataConnection : ITCDataConnection
     {
         /// <summary>
-        ///     A Constructor
+        ///     Konstructor
         /// </summary>
         public TCDataConnection()
         {
@@ -34,15 +34,14 @@ namespace TrafficControl.DAL.RestSharp
         /// </summary>
         public string ApiDirectory { get; set; }
 
-
         /// <summary>
-        ///     One of the functions to access WEB API
+        ///     function til at tilgå web api 
         /// </summary>
-        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">optional parameter for id in API</param>
-        /// <param name="d">optional parameter if you want to send an object</param>
-        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
-        public IRestResponse TCAPIconnection(Method b, long c = 0, object d = null)
+        /// <param name="b">HTTP requests som METHOD.POST ect. </param>
+        /// <param name="c"> hvis man vil connect til et specifik id til webapi </param>
+        /// <param name="d">hvis man skal sende et objekt med sit api kald</param>
+        /// <returns> RestResponse med alle de infomationer man skal bruge!</returns>
+        public IRestResponse TCAPIconnection(Method b, long c=0, object d = null)
         {
             var client = c == 0 ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
             var request = new RestRequest(b) {RequestFormat = DataFormat.Json};
@@ -58,11 +57,11 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         /// <summary>
-        ///     One of the functions to access WEB API
+        ///     function til at tilgå web api
         /// </summary>
-        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">optional parameter for id sometimes it's a string.. </param>
-        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
+        /// <param name="b">HTTP requests som METHOD.POST ect. </param>
+        /// <param name="c"> et objekt man kan sene til web api</param>
+        /// <returns> RestResponse med alle de infomationer man skal bruge!</returns>
         public IRestResponse TCAPIconnection(Method b, string c)
         {
             var client = c == "" ? new RestClient(ApiUrl + ApiDirectory) : new RestClient(ApiUrl + ApiDirectory + c);
@@ -73,12 +72,12 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         /// <summary>
-        ///     One of the functions to access WEB API
+        ///     function til at tilgå web api
         /// </summary>
-        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">the object you want to send </param>
-        /// <param name="ApiSubDirectory">if you need a more speicialize .../xxx </param>
-        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
+        /// <param name="ApiSubDirectory"> til mere customize api url .../xxx </param>
+        /// <param name="b">HTTP requests som METHOD.POST ect. </param>
+        /// <param name="c"> et objekt man kan sene til web api</param>
+        /// <returns> RestResponse med alle de infomationer man skal bruge!</returns>
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, object c)
         {
             var client = new RestClient(ApiUrl + ApiDirectory + ApiSubDirectory);
@@ -89,12 +88,12 @@ namespace TrafficControl.DAL.RestSharp
             return response;
         }
         /// <summary>
-        ///     One of the functions to access WEB API
+        ///     function til at tilgå web api
         /// </summary>
-        /// <param name="ApiSubDirectory">if you need a more speicialize .../xxx </param>
-        /// <param name="b">Set this to one of the HTTP requests like METHOD.POST ect. </param>
-        /// <param name="c">the specific id, otherwise just leave it be.. </param>
-        /// <returns>Returning a RestResponse Containing all the info you need!</returns>
+        /// <param name="ApiSubDirectory"> til mere customize api url .../xxx </param>
+        /// <param name="b">HTTP requests som METHOD.POST ect. </param>
+        /// <param name="c">valgfri, ellers er det til en specifik id man vil have connection til </param>
+        /// <returns> RestResponse med alle de infomationer man skal bruge!</returns>
         public IRestResponse TCAPIconnection(string ApiSubDirectory, Method b, int c = 0)
         {
             var client = c == 0
@@ -108,11 +107,12 @@ namespace TrafficControl.DAL.RestSharp
         }
 
         /// <summary>
-        /// Used to retreve a access token then save it 
+        /// Bruges til at få en token derefter gemmer den i static property
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /// <returns>returning true if succes and false if fail</returns>
+        /// <remarks>Kunne lægges over i User</remarks>
+        /// <returns> If succes then True else false</returns>
 
         public static bool LogIn(string email, string password)
         {

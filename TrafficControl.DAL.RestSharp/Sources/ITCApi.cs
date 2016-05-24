@@ -3,6 +3,9 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace TrafficControl.DAL.RestSharp
 {
+    /// <summary>
+    /// Interface
+    /// </summary>
     public interface ITCApi
     {
         #region Account

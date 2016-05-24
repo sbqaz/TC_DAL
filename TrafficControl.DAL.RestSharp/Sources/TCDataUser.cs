@@ -6,8 +6,9 @@ using TrafficControl.DAL.RestSharp.Types;
 namespace TrafficControl.DAL.RestSharp
 {
     /// <summary>
-    /// Denne klasse har ansvar for at API kald der omhandler Users
+    /// Denne klasse har ansvar for at API kald der omhandler User
     /// </summary>
+    /// <remarks>nedarvet fra TCDATA<list type="User"></list></remarks>
     public class TCDataUser : TCData<User>
     {
         /// <summary>
@@ -29,7 +30,7 @@ namespace TrafficControl.DAL.RestSharp
         /// <param name="lastname"></param>
         /// <param name="roles"> 0/1/2 for de forskellige roller </param>
         /// <param name="number"> mobil- eller telefonnummer</param>
-        /// <returns> True på Succes, False på Failures </returns>
+        /// <returns> True på Succes, else False </returns>
         public bool Post(string email, string password, string confirmedpassword, string firstname,
             string lastname, int roles, string number)
         {
@@ -45,6 +46,15 @@ namespace TrafficControl.DAL.RestSharp
             };
             var response = LIB.TCAPIconnection("Register/", Method.POST, transferOjbectToWebApi);
             return response.StatusCode == HttpStatusCode.OK;
+        }
+        /// <summary>
+        /// bruges ikke
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>False</returns>
+        public override bool Post(User obj)
+        {
+            return false;
         }
 
         /// <summary>
@@ -79,15 +89,20 @@ namespace TrafficControl.DAL.RestSharp
             var retval = JsonConvert.DeserializeObject<User>(response.Content);
             return retval;
         }
-
+        /// <summary>
+        /// Bruges ikke
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returner bare en tomt objekt</returns>
         public override User Get(long id)
         {
-            var response = LIB.TCAPIconnection("UserInfo/", Method.GET, id);
-            if (response.StatusCode != HttpStatusCode.OK) return new User();
-            var retval = JsonConvert.DeserializeObject<User>(response.Content);
-            return retval;
+            return new User();
         }
-
+        /// <summary>
+        /// Bruges til opdatering a user
+        /// </summary>
+        /// <param name="user">et user objekt</param>
+        /// <returns>True på Succes, False på Failure</returns>
         public override bool Update(User user)
         {
             var tmp = new UpdateUserInfoDTO
@@ -99,11 +114,13 @@ namespace TrafficControl.DAL.RestSharp
                 SMSNotification = user.SMSNotification
             };
 
-            //if (User == null) return false;
             var response = LIB.TCAPIconnection("UserInfo/", Method.PUT, tmp);
             return response.StatusCode == HttpStatusCode.OK;
         }
-
+        /// <summary>
+        /// At logge ud på user
+        /// </summary>
+        /// <returns>True på Succes, False på Failure</returns>
         public bool LogOut()
         {
             TCDataConnection.Token = string.Empty;
