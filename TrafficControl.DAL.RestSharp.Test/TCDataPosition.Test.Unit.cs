@@ -12,7 +12,7 @@ using TrafficControl.DAL.RestSharp.Types;
 namespace DAL.Test.Unit
 {
     /// <summary>
-    /// En Unit Test for TCDataPosition
+    /// En Unit Test for TCDataPosition DataConnection substitued out.
     /// </summary>
     [TestFixture]
     public class TCDataPositionTests

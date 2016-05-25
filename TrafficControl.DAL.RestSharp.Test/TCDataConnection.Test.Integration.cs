@@ -28,6 +28,8 @@ namespace DAL.Test.Unit
     [TestFixture]
     public class TCDataConnectionTests
     {
+        private string _username = "test@trafficcontrol.dk";
+        private string _password = "Phantom-161";
         private TCDataConnection uut { get; set; }
         private TCDataConnection uutWithPosition { get; set; }
 
@@ -37,6 +39,8 @@ namespace DAL.Test.Unit
             uut = new TCDataConnection() {};
             uutWithPosition = new TCDataConnection() { ApiDirectory = "api/Position/"};
             var fakerequest = Substitute.For<IRestRequest>();
+            _username = "";
+            _password = "";
 
         }
 
@@ -48,8 +52,14 @@ namespace DAL.Test.Unit
         [Test]
         public void Login_WithValidLogin_TokenNotEmpty()
         {
-            TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            TCDataConnection.LogIn(_username, _password);
             Assert.That(TCDataConnection.Token, Is.Not.Empty);
+        }
+        [Test]
+        public void Login_WithValidLogin_ReturnTrue()
+        {
+            var x = TCDataConnection.LogIn(_username, _password);
+            Assert.That(x, Is.True);
         }
         [Test]
         public void Login_WithInValidLogin_ReturnsFalse()
@@ -72,7 +82,7 @@ namespace DAL.Test.Unit
         public void Login_WithValidLogin_ReturnsTrue()
         {
 
-            var mytest = TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            var mytest = TCDataConnection.LogIn(_username, _password);
             Assert.That(mytest, Is.EqualTo(true));
         }
 
@@ -89,7 +99,7 @@ namespace DAL.Test.Unit
         [Test]
         public void TCAPIconnection_GetPositionValidToken_ReturnGoodStatusCode()
         {
-            TCDataConnection.LogIn("test@trafficcontrol.dk", "Phantom-161");
+            TCDataConnection.LogIn(_username, _password);
             var mytest = uutWithPosition.TCAPIconnection(Method.GET);
             Assert.That(mytest.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }

@@ -27,7 +27,7 @@ namespace TrafficControl.DAL.RestSharp
         /// <summary>
         ///     Store for the Token
         /// </summary>
-        public static string Token { get; set; }
+        public static string Token { get; set; } = "";
 
         /// <summary>
         ///     Store for the subdirection example.com/(...)

@@ -19,7 +19,7 @@ namespace DAL.Test.Unit
     namespace DAL.Test.Unit
     {
         /// <summary>
-        /// Test about 
+        /// Test about Installation, DataConnection substitued out.
         /// </summary>
         [TestFixture]
         public class TCDataInstallationTests
