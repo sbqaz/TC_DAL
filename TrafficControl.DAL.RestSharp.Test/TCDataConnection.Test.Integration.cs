@@ -28,8 +28,8 @@ namespace DAL.Test.Unit
     [TestFixture]
     public class TCDataConnectionTests
     {
-        private string _username = "test@trafficcontrol.dk";
-        private string _password = "Phantom-161";
+        private string _username;
+        private string _password;
         private TCDataConnection uut { get; set; }
         private TCDataConnection uutWithPosition { get; set; }
 
@@ -39,8 +39,8 @@ namespace DAL.Test.Unit
             uut = new TCDataConnection() {};
             uutWithPosition = new TCDataConnection() { ApiDirectory = "api/Position/"};
             var fakerequest = Substitute.For<IRestRequest>();
-            _username = "";
-            _password = "";
+            _username = "test@trafficcontrol.dk"; ;
+            _password = "Phantom-161";
 
         }
 
