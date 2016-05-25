@@ -47,7 +47,7 @@ namespace TrafficControl.DAL.RestSharp
             UserDataHandler = new TCDataUser();
             CaseDataHandler = new TCDataCase();
             InstallationDataHandler = new TCDataInstallation();
-            TCDataConnection.ApiUrl = ApiUrl;
+            //TCDataConnection.ApiUrl = ApiUrl;
             TCDataConnection.Token = _token;
         }
 

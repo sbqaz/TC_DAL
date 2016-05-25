@@ -22,7 +22,9 @@ namespace DAL.Test.Unit
         public string issued { get; set; }
         public string expires { get; set; }
     }
-
+    /// <summary>
+    /// test om TCDataConnection op mod en API, intet mocked. (ikke unit test)
+    /// </summary>
     [TestFixture]
     public class TCDataConnectionTests
     {
@@ -34,7 +36,6 @@ namespace DAL.Test.Unit
         {
             uut = new TCDataConnection() {};
             uutWithPosition = new TCDataConnection() { ApiDirectory = "api/Position/"};
-            TCDataConnection.ApiUrl = @"https://test.trafficcontrol.dk/";
             var fakerequest = Substitute.For<IRestRequest>();
 
         }

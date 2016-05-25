@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using NSubstitute;
+using NSubstitute.Core.Arguments;
 using NUnit.Framework;
 using RestSharp;
 using TrafficControl.DAL.RestSharp;
@@ -10,6 +11,9 @@ using TrafficControl.DAL.RestSharp.Types;
 
 namespace DAL.Test.Unit
 {
+    /// <summary>
+    /// En Unit Test for TCDataPosition
+    /// </summary>
     [TestFixture]
     public class TCDataPositionTests
     {
@@ -47,6 +51,27 @@ namespace DAL.Test.Unit
             Assert.AreEqual(jsonResult, jsonExpectedResult);
         }
         [Test]
+        public void Get_WithId_GetExpectedPosition()
+
+        {
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position() { Id = 1, Latitude = 56.43372, Longtitude = 10.05303 });
+            uut.LIB.TCAPIconnection(Method.GET,Arg.Any<long>()).StatusCode.Returns(HttpStatusCode.OK);
+            uut.LIB.TCAPIconnection(Method.GET,Arg.Any<long>()).Content.Returns(jsonExpectedResult);
+            var jsonResult = JsonConvert.SerializeObject(uut.Get(1));
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
+        }
+        [Test]
+        public void Get_APIRespondedNotOkayStatusCode_GetExpectedPosition()
+
+        {
+            var AjsonResult = JsonConvert.SerializeObject(new Position() { Id = 1, Latitude = 56.43372, Longtitude = 10.05303 });
+            var jsonExpectedResult = JsonConvert.SerializeObject(new Position());
+            uut.LIB.TCAPIconnection(Method.GET, Arg.Any<long>()).StatusCode.Returns(HttpStatusCode.GatewayTimeout);
+            uut.LIB.TCAPIconnection(Method.GET, Arg.Any<long>()).Content.Returns(AjsonResult);
+            var jsonResult = JsonConvert.SerializeObject(uut.Get(1));
+            Assert.AreEqual(jsonResult, jsonExpectedResult);
+        }
+        [Test]
         public void Get_APIReturnsNothing_GetExpectedListOfPositions()
         {
             var jsonExpectedResult = JsonConvert.SerializeObject(new Position[2] { new Position() { Id = 1, Latitude = 56.43372, Longtitude = 10.05303 }, new Position() { Id = 2, Latitude = 56.46389, Longtitude = 9.988638 } });
@@ -64,6 +89,5 @@ namespace DAL.Test.Unit
             var jsonExpectedResult = JsonConvert.SerializeObject(new Position());
             Assert.AreEqual(jsonResult, jsonExpectedResult);
         }
-
     }
 }

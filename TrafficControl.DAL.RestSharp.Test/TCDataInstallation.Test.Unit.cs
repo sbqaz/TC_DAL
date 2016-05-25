@@ -18,6 +18,9 @@ namespace DAL.Test.Unit
 
     namespace DAL.Test.Unit
     {
+        /// <summary>
+        /// Test about 
+        /// </summary>
         [TestFixture]
         public class TCDataInstallationTests
         {

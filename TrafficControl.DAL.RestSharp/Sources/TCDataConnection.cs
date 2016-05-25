@@ -22,7 +22,7 @@ namespace TrafficControl.DAL.RestSharp
         /// <summary>
         ///     Store for the url
         /// </summary>
-        public static string ApiUrl { get; set; }
+        public static string ApiUrl { get; } = @"https://api.trafficcontrol.dk/";
 
         /// <summary>
         ///     Store for the Token
